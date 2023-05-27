@@ -10,6 +10,9 @@ use App\Imports\StoresImport;
 use App\Exports\StoresExport;
 use App\Imports\PlansImport;
 use App\Exports\PlansExport;
+use App\Imports\PartyImport;
+use App\Exports\PartyExport;
+
 
 class ImportController extends Controller
 {
@@ -41,6 +44,24 @@ class ImportController extends Controller
     {   
         $key_search = isset($request->key_search) ? $request->key_search : '';
         return Excel::download(new StoresExport($key_search), 'store-collection.xlsx');
+    }
+
+    
+
+
+    public function partyImportExport()
+    {
+       return view('party-import');
+    }
+    public function partyImport(Request $request) 
+    {
+        Excel::import(new PartyImport, $request->file('file')->store('temp'));
+        return back()->withStatus('Import Successfully');
+    }
+    public function partyExport(Request $request) 
+    {   
+        $key_search = isset($request->key_search) ? $request->key_search : '';
+        return Excel::download(new PartyExport($key_search), 'party-collection.xlsx');
     }
 
     

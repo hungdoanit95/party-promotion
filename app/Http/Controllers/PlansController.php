@@ -151,7 +151,7 @@ class PlansController extends Controller
             }
             $total_plan = DB::table('plans')
             ->leftJoin('users','plans.user_id','=','users.id')
-            ->leftJoin('stores','plans.store_id','=','stores.id')
+            ->leftJoin('parties','plans.party_id','=','parties.id')
             ->leftJoin('survey_history','survey_history.group_id','=','stores.survey_group_ids')
             ->where('plans.user_id','=',$user_id)
             ->where('plans.id_deleted','=',0)

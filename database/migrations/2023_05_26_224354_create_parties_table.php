@@ -14,6 +14,7 @@ class CreatePartiesTable extends Migration
     public function up()
     {
         Schema::create('parties', function (Blueprint $table) {
+            $table->id();
             $table->string('party_code')->unique(); //Mã tiệc
             $table->string('introducer_name')->nullable(); // tên người giới thiệu 
             $table->string('introducer_phone')->nullable(); // Số điện thoại người giới thiệu

@@ -37,6 +37,8 @@ Route::post('update-plan-data', [\App\Http\Controllers\PlansController::class, '
 Route::post('update-detail-plan-web', [\App\Http\Controllers\PlansController::class, 'updateDetailPlanWeb'])->name('update.detail.plan.web');
 
 Route::get('/get-store-list', [\App\Http\Controllers\StoresController::class, 'getStores'])->name('get-store-list');
+Route::get('/get-party-list', [\App\Http\Controllers\PartyController::class, 'getParties'])->name('get-party-list');
+
 Route::post('/update-overview-stores', [\App\Http\Controllers\StoresController::class, 'updateOverviewStores'])->name('update-overview-stores');
 Route::post('/group-store-code', [\App\Http\Controllers\StoresController::class, 'groupStoreCode'])->name('group-store-code');
 

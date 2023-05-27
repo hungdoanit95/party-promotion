@@ -32,6 +32,7 @@ class CreateStoresTable extends Migration
             $table->string('distributor_code')->nullable();
             $table->string('distributor_name')->nullable();
             $table->smallInteger('status')->default(1);
+            $table->smallInteger('id_deleted')->default(0);
             $table->timestamps();
         });
     }

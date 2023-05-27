@@ -15,7 +15,7 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->integer('store_id');
+            $table->integer('store_id')->nullable();
             $table->integer('user_id');
             $table->string('plan_name')->nullable();
             $table->string('route_plan');

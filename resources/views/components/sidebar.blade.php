@@ -56,6 +56,18 @@
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#party-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-house"></i><span>Party Place</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="party-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="{{route('get-party-list')}}" class="active">
+          <i class="bi bi-circle"></i><span>Party List</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-menu-button-wide"></i><span>Import Files</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
