@@ -16,21 +16,7 @@ class DataSurveyGroups extends Seeder
     {
         $survey_groups = [
             [
-                'group_name'=>'Mức trưng bày Dimond',
-                'parent_id'=>0,
-                'status'=>1,
-                'sort_order' => 0,
-                'created_at'=>date('Y-m-d H:i:s')
-            ],
-            [
-                'group_name'=>'Mức trưng bày Gold',
-                'parent_id'=>0,
-                'status'=>1,
-                'sort_order' => 0,
-                'created_at'=>date('Y-m-d H:i:s')
-            ],
-            [
-                'group_name'=>'Mức trưng bày Silver',
+                'group_name'=>'Nhập liệu nhân viên',
                 'parent_id'=>0,
                 'status'=>1,
                 'sort_order' => 0,

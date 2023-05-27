@@ -30,7 +30,11 @@ class CreatePlansTable extends Migration
             $table->string('ip_imei')->nullable();
             $table->integer('status')->default(0); // Trạng thái: 0: Chưa làm /1: Thành công / 2: Không thành công
             $table->smallInteger('reason_deleted')->default(0);
+            $table->dateTime('date_upload')->nullable();
             $table->integer('id_deleted')->default(0);
+            $table->string('confirm_report')->nullable();
+            $table->string('user_confirm_report')->nullable();
+            $table->string('plan_qc_code')->nullable();
             $table->timestamps();
         });
     }

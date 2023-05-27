@@ -3,7 +3,7 @@
     <div class="container mt-5 text-center" style="min-height: 550px">
         <div class="bg-white bg-export">
             <h2 class="mb-4 font-weight-bold">
-                Tải danh sách cửa hàng
+                Tải danh sách buổi tiệc
             </h2>
             <a class="btn btn-success" onClick="exportStore()">Export data</a>
         </div>

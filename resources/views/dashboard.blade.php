@@ -61,8 +61,8 @@
                 document.addEventListener("DOMContentLoaded", () => {
                   echarts.init(document.querySelector("#pieChart")).setOption({
                     title: {
-                      text: 'Danh sách cửa hàng',
-                      subtext: 'Tổng số {{ $all_plan }} cửa hàng',
+                      text: 'Danh sách buổi tiệc',
+                      subtext: 'Tổng số {{ $all_plan }} buổi tiệc',
                       left: 'center'
                     },
                     tooltip: {
@@ -144,7 +144,7 @@
     <div class="card info-card sales-card">
 
       <div class="card-body">
-        <h5 class="card-title">Tổng số cửa hàng</h5>
+        <h5 class="card-title">Tổng số buổi tiệc</h5>
 
         <div class="d-flex align-items-center">
           <div class="card-icon rounded-circle d-flex align-items-center justify-content-center icon">
@@ -152,7 +152,7 @@
           </div>
           <div class="ps-3">
             <h6>{{ $statistical['all_plan'] }}</h6>
-            <span class="text-muted small pt-2 ps-1">Tổng số cửa hàng</span>
+            <span class="text-muted small pt-2 ps-1">Tổng số buổi tiệc</span>
           </div>
         </div>
       </div>

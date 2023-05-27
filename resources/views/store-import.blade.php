@@ -3,7 +3,7 @@
     <div class="container mt-5 text-center" style="min-height: 550px">
         <div class="bg-white bg-import">
             <h2 class="mb-4 font-weight-bold">
-                Nhập danh sách cửa hàng
+                Nhập danh sách buổi tiệc
             </h2>
             <form action="{{ route('store-import') }}" method="POST" enctype="multipart/form-data">
                 @csrf

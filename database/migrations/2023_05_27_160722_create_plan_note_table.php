@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlanImagesTable extends Migration
+class CreatePlanNoteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreatePlanImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('plan_images', function (Blueprint $table) {
+        Schema::create('plan_note', function (Blueprint $table) {
             $table->id();
-            $table->integer('plan_id');
             $table->integer('user_id');
-            $table->string('link_image');
-            $table->integer('type_image');
-            $table->integer('is_deleted')->default(0);
+            $table->integer('plan_id');
+            $table->string('note_type')->nullable();
+            $table->integer('is_done')->nullable();
+            $table->string('time_is_done')->nullable();
+            $table->string('note_content')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreatePlanImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plan_images');
+        Schema::dropIfExists('plan_note');
     }
 }

@@ -71,7 +71,7 @@
                                 <td scope="row"><a href="{{ !empty($store->overview_img)?'/storage/app/'.$store->overview_img:asset('assets/img/store.jpg')}}" class="td-image" target="_blank"><img width="120" style="border-radius: 5px; max-height: 100px; object-fit: cover;" src="{{ !empty($store->overview_img)?'/storage/app/'.$store->overview_img:asset('assets/img/store.jpg')}}" /></a></td>
                                 <td>{{ $store->store_name }}</td>
                                 <td>
-                                    <p style="font-size: 13px; font-weight: bold; margin-bottom: 2px;">Mã cửa hàng: {{ $store->store_code }}</p>
+                                    <p style="font-size: 13px; font-weight: bold; margin-bottom: 2px;">Mã buổi tiệc: {{ $store->store_code }}</p>
                                     <p style="font-size: 13px; margin-bottom: 2px;">Địa chỉ: {{ $store->address }}</p>
                                     <p style="font-size: 13px; margin-bottom: 2px;">Toạ độ: {{ $store->lat }} - {{ $store->long }}</p>
                                     <p style="font-size: 13px; margin-bottom: 2px;">Vùng: {{ $store->region }}</p>
@@ -200,7 +200,7 @@
     </button>
     <button onclick="groupStoreId()" id="btn-group-store" class="btn btn-dark-success btn-md">
       <i class="bi bi-gear"></i>
-      <span>Gộp mã cửa hàng</span>
+      <span>Gộp mã buổi tiệc</span>
     </button>
     <script>
       function downloadExcel(){

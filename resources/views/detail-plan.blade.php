@@ -440,7 +440,7 @@
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Chi tiết cửa hàng</h5>
+          <h5 class="card-title">Chi tiết buổi tiệc</h5>
             <ul>
                 <li>
                     <span>Tên CH: {{ $data['plan_info']->store_name }}</span>

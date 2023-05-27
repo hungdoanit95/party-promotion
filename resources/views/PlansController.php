@@ -228,7 +228,7 @@ class PlansController extends Controller
             ->where('user_id', $data['user_id'])->select('time_checkin','lat','long')->first();
             if(!empty($check_checkin->time_checkin) && !empty($check_checkin->lat)){
                 return response()->json([
-                    'message' => 'Cửa hàng đã check in vào lúc '.$check_checkin->time_checkin,
+                    'message' => 'Buổi tiệc đã check in vào lúc '.$check_checkin->time_checkin,
                     'lat' => $check_checkin->lat,
                     'long' => $check_checkin->long,
                     'status' => 1
@@ -245,7 +245,7 @@ class PlansController extends Controller
             ]);
             if($check_update){
                 return response()->json([
-                    'message' => 'Bạn đã Check In thành công cửa hàng!',
+                    'message' => 'Bạn đã Check In thành công buổi tiệc!',
                     'status' => 1
                 ],200);
             }else{
@@ -599,7 +599,7 @@ class PlansController extends Controller
                     return response()->json(
                         [
                             'api_name'=> 'API Add Plan',
-                            'message' => 'Tạo plan cho cửa hàng không thành công!',
+                            'message' => 'Tạo plan cho buổi tiệc không thành công!',
                             'status' => 0
                     ], 500);
                 }
@@ -607,7 +607,7 @@ class PlansController extends Controller
                 return response()->json(
                     [
                         'api_name'=> 'API Add Plan',
-                        'message' => 'Tạo cửa hàng không thành công!',
+                        'message' => 'Tạo buổi tiệc không thành công!',
                         'status' => 0
                 ], 500);
             }
@@ -631,7 +631,7 @@ class PlansController extends Controller
                 return response()->json(
                     [
                         'api_name'=> 'API Add Plan',
-                        'message' => 'Tạo plan cho cửa hàng không thành công!',
+                        'message' => 'Tạo plan cho buổi tiệc không thành công!',
                         'status' => 0
                 ], 500);
             }
@@ -741,7 +741,7 @@ class PlansController extends Controller
                     return response()->json(
                         [
                             'api_name'=> 'API Update Status',
-                            'message' => 'Bạn đã cập nhật cửa hàng thành công!',
+                            'message' => 'Bạn đã cập nhật buổi tiệc thành công!',
                             'status' => 1
                     ], 200);
                 }else{
