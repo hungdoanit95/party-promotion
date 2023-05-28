@@ -56,6 +56,10 @@ Route::middleware('verify.api')->prefix('plans')->group(function () {
     Route::post('/get_info_user', [\App\Http\Controllers\UsersController::class,'get_info_user']);
 });
 
+Route::middleware('verify.api')->prefix('party')->group(function () {
+    Route::post('/get_parties', [\App\Http\Controllers\PartyController::class, 'getPartiesByUserIdMobile']);
+});
+
 //List Local
 Route::prefix('local')->group(function () {
     Route::get('/provinces', [\App\Http\Controllers\ProvincesController::class,'get_list_provinces']);

@@ -25,7 +25,7 @@ class DataParties extends Seeder
           'party_type' => 'Sinh Nhật', // Loại tiệc
           'party_level' => '1', // Mức tiệc
           'beer_type' => 'Blanc', // Loại bia
-          'organization_date' => '24-01-2023', // Ngày diễn ra tiệc
+          'organization_date' => '2023-05-24', // Ngày diễn ra tiệc
           'organization_time' => '14:30:00', // Thời gian tổ chức
           'province' => 'Hồ Chí Minh', // Tỉnh thành phố
           'district' => 'Bình Thạnh', // Quận huyện
@@ -36,7 +36,6 @@ class DataParties extends Seeder
           'distributor' => 'NPP 1', // Mã nhà phân phối
           'point_of_salename' => 'Bình Thạnh', // Điểm bán
           'point_of_salephone' => '0949 683 558', // Số điện thoại điểm bán
-          'user_id' => 1,
           'status' => 1
         ],
         [
@@ -49,7 +48,7 @@ class DataParties extends Seeder
           'party_type' => 'Sinh Nhật', // Loại tiệc
           'party_level' => '1', // Mức tiệc
           'beer_type' => 'Blanc', // Loại bia
-          'organization_date' => '24-01-2023', // Ngày diễn ra tiệc
+          'organization_date' => '2023-05-28', // Ngày diễn ra tiệc
           'organization_time' => '14:30:00', // Thời gian tổ chức
           'province' => 'Hồ Chí Minh', // Tỉnh thành phố
           'district' => 'Bình Thạnh', // Quận huyện
@@ -60,7 +59,6 @@ class DataParties extends Seeder
           'distributor' => 'NPP 1', // Mã nhà phân phối
           'point_of_salename' => 'Bình Thạnh', // Điểm bán
           'point_of_salephone' => '0949 683 558', // Số điện thoại điểm bán
-          'user_id' => 1,
           'status' => 1
         ],
       ];

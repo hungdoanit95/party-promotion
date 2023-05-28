@@ -31,7 +31,6 @@ class Parties extends Model
         'distributor',
         'point_of_salename',
         'point_of_salephone',
-        'user_id',
         'status'
     );
 }

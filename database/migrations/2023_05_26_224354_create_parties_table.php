@@ -35,7 +35,6 @@ class CreatePartiesTable extends Migration
             $table->string('distributor')->nullable(); // Mã nhà phân phối
             $table->string('point_of_salename')->nullable(); // Điểm bán
             $table->string('point_of_salephone')->nullable(); // Số điện thoại điểm bán
-            $table->integer('user_id');
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
             $table->integer('status')->default(1); // Trạng thái

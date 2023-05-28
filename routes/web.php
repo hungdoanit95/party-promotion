@@ -34,15 +34,45 @@ Route::get('/get-list-plans', [\App\Http\Controllers\PlansController::class, 'ge
 Route::get('/get-info-plan/{id}', [\App\Http\Controllers\PlansController::class, 'getDetailPlan'])->name('get-info-plan');
 Route::get('/live-search', [\App\Http\Controllers\PlansController::class, 'liveSearch'])->name('live.search');
 Route::post('/confirm-qc-plan', [\App\Http\Controllers\PlansController::class, 'confirmQcPlan'])->name('confirm.qc.plan');
-
-Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-
 Route::post('update-plan-data', [\App\Http\Controllers\PlansController::class, 'updatePlanData'])->name('update-plan-data');
 Route::post('update-detail-plan-web', [\App\Http\Controllers\PlansController::class, 'updateDetailPlanWeb'])->name('update.detail.plan.web');
 
-Route::get('/get-store-list', [\App\Http\Controllers\StoresController::class, 'getStores'])->name('get-store-list');
-Route::get('/get-party-list', [\App\Http\Controllers\PartyController::class, 'getParties'])->name('get-party-list');
 
+
+
+Route::get('/get-list-plans-party', [\App\Http\Controllers\PartyController::class, 'getListPlansParty'])->name('get-list-plans-party');
+Route::get('/get-info-plan-party/{id}', [\App\Http\Controllers\PartyController::class, 'getDetailPlan'])->name('get-info-plan-party');
+Route::get('/live-search-party', [\App\Http\Controllers\PartyController::class, 'liveSearchParty'])->name('live.search.party');
+Route::post('/confirm-qc-plan-party', [\App\Http\Controllers\PartyController::class, 'confirmQcPlanParty'])->name('confirm.qc.plan.party');
+Route::get('/get-party-list', [\App\Http\Controllers\PartyController::class, 'getParties'])->name('get-party-list');
+Route::post('update-detail-plan-party', [\App\Http\Controllers\PartyController::class, 'updateDetailPlanParty'])->name('update.detail.plan.party');
+
+Route::post('/upload-image-plan-party', [\App\Http\Controllers\PartyController::class, 'uploadImagePlanParty'])->name('upload.image.plan.party');
+Route::get('/fetch-image-party', [\App\Http\Controllers\PartyController::class, 'fetchImage'])->name('fetch.image.party');
+Route::post('/delete-image-party', [\App\Http\Controllers\PartyController::class, 'deleteImage'])->name('delete.image.party');
+Route::post('/update-image-data-party', [\App\Http\Controllers\PartyController::class, 'updateImageData'])->name('update.image.data.party');
+Route::post('/update-type-image-party', [\App\Http\Controllers\PartyController::class,'updateTypeImage'])->name('update.status.image.party');
+Route::post('/update-report-plan-party', [\App\Http\Controllers\PartyController::class, 'updateReportPlan'])->name('update.report.plan.party');
+Route::post('/update-plan-note-party', [\App\Http\Controllers\PartyController::class, 'updatePlanNote'])->name('update.plan.note.party');
+Route::post('/update-status-plan-note-party', [\App\Http\Controllers\PartyController::class, 'updateStatusPlanNote'])->name('update.status.plan.note.party');
+Route::post('/update-qc-code-party', [\App\Http\Controllers\PartyController::class, 'updateQcCode'])->name('update.qc.code.party');
+Route::post('/delete-plan-party', [\App\Http\Controllers\PartyController::class, 'deletePlan'])->name('delete.plan.party');
+Route::get('/transfer-plan-party', [\App\Http\Controllers\PartyController::class, 'transferPlanParty'])->name('transfer.plan.party');
+Route::post('/update-transfer-plan-party', [\App\Http\Controllers\PartyController::class, 'updateTransferPlanParty'])->name('update.transfer.plan.party');
+Route::post('/re-calculate-result-party', [\App\Http\Controllers\PartyController::class, 'reCalculateResult'])->name('re.calculate.result.party');
+
+
+
+
+
+
+
+
+
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+
+Route::get('/get-store-list', [\App\Http\Controllers\StoresController::class, 'getStores'])->name('get-store-list');
 Route::post('/update-overview-stores', [\App\Http\Controllers\StoresController::class, 'updateOverviewStores'])->name('update-overview-stores');
 Route::post('/group-store-code', [\App\Http\Controllers\StoresController::class, 'groupStoreCode'])->name('group-store-code');
 

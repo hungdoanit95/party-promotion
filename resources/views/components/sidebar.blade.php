@@ -28,63 +28,51 @@
   </li>
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-layout-text-window-reverse"></i><span>Plan List</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-layout-text-window-reverse"></i><span>Kế hoạch làm việc</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
       <li>
-        <a href="{{route('get-list-plans')}}" class="active">
+        <a href="{{route('get-list-plans-party')}}" class="active">
           <i class="bi bi-circle"></i><span>Plan List</span>
         </a>
       </li>
       <li>
-        <a href="{{route('transfer.plan')}}" class="active">
+        <a href="{{route('transfer.plan.party')}}" class="active">
           <i class="bi bi-circle"></i><span>Chuyển Plan</span>
         </a>
       </li>
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#stores-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-house"></i><span>Store List</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="stores-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="{{route('get-store-list')}}" class="active">
-          <i class="bi bi-circle"></i><span>Store List</span>
-        </a>
-      </li>
-    </ul>
-  </li>
-  <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#party-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-house"></i><span>Party Place</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-house"></i><span>Danh sách địa điểm</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="party-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
       <li>
         <a href="{{route('get-party-list')}}" class="active">
-          <i class="bi bi-circle"></i><span>Party List</span>
+          <i class="bi bi-circle"></i><span>Địa điểm tổ chức</span>
         </a>
       </li>
     </ul>
   </li>
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-menu-button-wide"></i><span>Import Files</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-menu-button-wide"></i><span>Chức năng import</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
     <li>
       <a href="/user-import-export">
-        <i class="bi bi-circle"></i><span>Step 1: Import Users</span>
+        <i class="bi bi-circle"></i><span>Bước 1: Thêm Nhân viên</span>
       </a>
     </li>
     <li>
       <a href="/store-import-export">
-        <i class="bi bi-circle"></i><span>Step 2: Import Stores</span>
+        <i class="bi bi-circle"></i><span>Bước 2: Thêm Địa điểm</span>
       </a>
     </li>
     <li>
       <a href="/plan-import-export">
-        <i class="bi bi-circle"></i><span>Step 3: Import Plans</span>
+        <i class="bi bi-circle"></i><span>Bước 3: Thêm kế hoạch</span>
       </a>
     </li>
     </ul>

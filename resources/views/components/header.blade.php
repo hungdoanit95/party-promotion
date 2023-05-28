@@ -31,6 +31,13 @@
             .toggle-sidebar .bi-text-indent-right::before{
                 content: "\f5c5"
             }
+            .bg-import{
+              padding: 25px 15px;
+            }
+            .bg-import h2{
+              font-size: 25px;
+              margin-bottom: 15px !important;
+            }
         </style>
     </head>
     <body>
