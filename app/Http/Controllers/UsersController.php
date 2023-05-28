@@ -185,7 +185,7 @@ class UsersController extends Controller
                     'status' => 0
             ], 500);
         }else{
-            $user_info = User::where('id', $user_id)->select('telephone','email','address','bank_number','username')->get();
+            $user_info = User::where('id', $user_id)->select('telephone','email','address','bank_number','username')->first();
             return response()->json(
                 [
                     'name' => 'API Get Info User',
