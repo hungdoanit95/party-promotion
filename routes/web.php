@@ -26,6 +26,10 @@ Route::get('store-import-export', [\App\Http\Controllers\ImportController::class
 Route::post('/store-import',  [\App\Http\Controllers\ImportController::class, 'storeImport'])->name('store-import');
 Route::get('/store-export', [\App\Http\Controllers\ImportController::class, 'storeExport'])->name('store-export');
 
+Route::get('party-import-export', [\App\Http\Controllers\ImportController::class, 'partyImportExport']);
+Route::post('/party-import',  [\App\Http\Controllers\ImportController::class, 'partyImport'])->name('party-import');
+Route::get('/party-export', [\App\Http\Controllers\ImportController::class, 'partyExport'])->name('party-export');
+
 Route::get('/get-list-plans', [\App\Http\Controllers\PlansController::class, 'getListPlans'])->name('get-list-plans');
 Route::get('/get-info-plan/{id}', [\App\Http\Controllers\PlansController::class, 'getDetailPlan'])->name('get-info-plan');
 Route::get('/live-search', [\App\Http\Controllers\PlansController::class, 'liveSearch'])->name('live.search');

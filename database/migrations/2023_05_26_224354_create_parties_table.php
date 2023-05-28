@@ -16,6 +16,7 @@ class CreatePartiesTable extends Migration
         Schema::create('parties', function (Blueprint $table) {
             $table->id();
             $table->string('party_code')->unique(); //Mã tiệc
+            $table->string('avatar')->nullable(); 
             $table->string('introducer_name')->nullable(); // tên người giới thiệu 
             $table->string('introducer_phone')->nullable(); // Số điện thoại người giới thiệu
             $table->string('party_host_name'); // Tên chủ tiệc
@@ -35,6 +36,8 @@ class CreatePartiesTable extends Migration
             $table->string('point_of_salename')->nullable(); // Điểm bán
             $table->string('point_of_salephone')->nullable(); // Số điện thoại điểm bán
             $table->integer('user_id');
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
             $table->integer('status')->default(1); // Trạng thái
         });
     }

@@ -13,6 +13,7 @@ class Parties extends Model
     protected $fillable = array(
         'party_code',
         'introducer_name',
+        'avatar',
         'introducer_phone',
         'party_host_name',
         'party_host_phone',

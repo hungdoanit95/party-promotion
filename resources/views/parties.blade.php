@@ -59,27 +59,47 @@
                     <thead>
                     <tr>
                         <th scope="col">Hình</th>
-                        <th scope="col">Tên CH</th>
-                        <th scope="col">Mô tả</th>
-                        <th scope="col">Asm</th>
+                        <th scope="col">Chủ tiệc</th>
+                        <th scope="col">Thông tin</th>
+                        <th scope="col">Người giới thiệu</th>
+                        <th scope="col">Nhà phân phối</th>
                     </tr>
                     </thead>
                     <tbody>
                         @foreach($parties_lists as $key => $store)
                           @if(!empty($store))
                             <tr style="font-size: 14px">
-                                <td scope="row"><a href="{{ !empty($store->overview_img)?'/storage/app/'.$store->overview_img:asset('assets/img/store.jpg')}}" class="td-image" target="_blank"><img width="120" style="border-radius: 5px; max-height: 100px; object-fit: cover;" src="{{ !empty($store->overview_img)?'/storage/app/'.$store->overview_img:asset('assets/img/store.jpg')}}" /></a></td>
-                                <td>{{ $store->store_name }}</td>
+                                <td scope="row"><a href="{{ !empty($store->avatar)?'/storage/app/'.$store->avatar:asset('assets/img/store.jpg')}}" class="td-image" target="_blank"><img width="120" style="border-radius: 5px; max-height: 100px; object-fit: cover;" src="{{ !empty($store->overview_img)?'/storage/app/'.$store->overview_img:asset('assets/img/store.jpg')}}" /></a></td>
                                 <td>
-                                    <p style="font-size: 13px; font-weight: bold; margin-bottom: 2px;">Mã buổi tiệc: {{ $store->store_code }}</p>
-                                    <p style="font-size: 13px; margin-bottom: 2px;">Địa chỉ: {{ $store->address }}</p>
-                                    <p style="font-size: 13px; margin-bottom: 2px;">Toạ độ: {{ $store->lat }} - {{ $store->long }}</p>
-                                    <p style="font-size: 13px; margin-bottom: 2px;">Vùng: {{ $store->region }}</p>
-                                    <p style="font-size: 13px; margin-bottom: 2px;">Ghi chú: {{ $store->store_note }}</p>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->party_code }}</p>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->party_host_name }}</p>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->party_host_phone }}</p>
                                 </td>
                                 <td>
-                                  <p style="font-size: 13px; margin-bottom: 2px;">Tên: {{ $store->asm_name }}</p>
-                                  <p style="font-size: 13px; margin-bottom: 2px;">Sdt: {{ $store->asm_phone }}</p>
+                                    <p style="font-size: 13px; font-weight: bold; margin-bottom: 2px;">Loại tiệc: {{ $store->party_type }}</p>
+                                    <p style="font-size: 13px; margin-bottom: 2px;">
+                                      Địa chỉ: 
+                                        {{ $store->home_number ? $store->home_number : '' }}
+                                        {{ $store->street ? ', ' . $store->street : '' }}
+                                        {{ $store->ward ? ', ' . $store->ward : '' }}
+                                        {{ $store->district ? ', ' . $store->district : '' }}
+                                        {{ $store->province ? ', ' . $store->province : '' }}
+                                    </p>
+                                    <?php if(!empty($store->lat) && !empty($store->long)){ ?> 
+                                    <p style="font-size: 13px; margin-bottom: 2px;">
+                                      Toạ độ: {{ $store->lat }} - {{ $store->long }}
+                                    </p>
+                                    <?php } ?>
+                                    <p style="font-size: 13px; margin-bottom: 2px;">Ghi chú: {{ $store->notes }}</p>
+                                </td>
+                                <td>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->introducer_name }}</p>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->introducer_phone }}</p>
+                                </td>
+                                <td>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->distributor }}</p>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->point_of_salename }}</p>
+                                  <p style="font-size: 13px; margin-bottom: 2px;">{{ $store->point_of_salephone }}</p>
                                 </td>
                             </tr>
                           @endif
