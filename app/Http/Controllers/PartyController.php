@@ -140,7 +140,14 @@ class PartyController extends Controller
         'api_name' => 'List Plan Party',
         'status'  => 1,
         'data' => $plan_parties,
-        'message' => 'Cập nhật trạng thái không thành công!',
+        'message' => 'Load dữ liệu thành công!',
+      ]);
+    }else{
+      return response()->json([
+        'api_name' => 'List Plan Party',
+        'status'  => 0,
+        'data' => '',
+        'message' => 'Thiếu params user_id!',
       ]);
     }
   }
