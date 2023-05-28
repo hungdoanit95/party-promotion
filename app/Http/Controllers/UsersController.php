@@ -62,19 +62,23 @@ class UsersController extends Controller
             }
             $member->save();
             return response()->json([
-                "user_id" => $member->id,
-                "group_id"=> $member->group_id,
-                "group_name"=> $member->userGroup->group_name,
-                "usercode"=> $member->usercode,
-                "username"=> $member->username,
-                "password"=> $member->password,
-                "telephone"=> $member->telephone,
-                "email"=> $member->email,
-                "address"=> $member->address,
-                "avatar"=> $member->avatar,
-                "remember_token"=> $member->remember_token,
-                "message" => "Đăng nhập thành công",
-                "status"=> 1
+                'api_name' => 'API Login',
+                'data' => [
+                    "user_id" => $member->id,
+                    "group_id"=> $member->group_id,
+                    "group_name"=> $member->userGroup->group_name,
+                    "usercode"=> $member->usercode,
+                    "username"=> $member->username,
+                    "password"=> $member->password,
+                    "telephone"=> $member->telephone,
+                    "email"=> $member->email,
+                    "address"=> $member->address,
+                    "avatar"=> $member->avatar,
+                    "remember_token"=> $member->remember_token,
+                    "message" => "Đăng nhập thành công",
+                    "status"=> 1
+                ],
+                'status' => 1
             ],200);
         } catch (\Exception $error) {
             Log::error($error);
