@@ -118,7 +118,13 @@ class PartyController extends Controller
         ]);
     }
 
-    // For Mobile
+
+
+    
+    // ===================================================================
+    // ----------------------------- For Mobile--------------------------
+    // =================================================================
+
     public function getPartiesByUserIdMobile(Request $request){
       if($request->user_id){ 
         $plan_parties = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')
@@ -149,6 +155,64 @@ class PartyController extends Controller
         'data' => '',
         'message' => 'Thiếu params user_id!',
       ]);
+    }
+  }
+  
+  public function checkinParty(Request $request){
+    try{
+        DB::enableQueryLog();
+        $data = $request;
+        if(empty($data['latitude'])||empty($data['longitude'])){
+            return response()->json(
+                [
+                    'message' => Messages::MSG_0021,
+                    'status' => 0
+            ], 500);
+        }
+        if(empty($data['plan_party_id'])){
+            return response()->json(
+                [
+                    'message' => Messages::MSG_0023,
+                    'status' => 0
+            ], 500);
+        }
+
+        $check_checkin = PlanParty::where('id', $data['plan_party_id'])
+        ->where('user_id', $data['user_id'])->select('time_checkin','lat','long')->first();
+        if(!empty($check_checkin->time_checkin) && !empty($check_checkin->lat)){
+            return response()->json([
+                'message' => 'Buổi tiệc đã check in vào lúc '.$check_checkin->time_checkin,
+                'lat' => $check_checkin->lat,
+                'long' => $check_checkin->long,
+                'status' => 1
+            ],200);
+        }
+        $check_update = PlanParty::where('id', $data['plan_party_id'])
+        ->where('user_id', $data['user_id'])
+        ->where('status',0)
+        ->update([
+            'ip_imei' => $data['imei'],
+            'lat' => $data['latitude'],
+            'long' => $data['longitude'],
+            'time_checkin'=> date('Y-m-d H:i:s')
+        ]);
+        if($check_update){
+            return response()->json([
+                'message' => 'Bạn đã Check In thành công buổi tiệc!',
+                'status' => 1
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Check In không thành công vui lòng liên hệ IT',
+                'status' => 0
+            ],500);
+        }
+    }catch(Exception $e){
+        return response()->json([
+            'message' => 'Check In không thành công vui lòng liên hệ IT',
+            'status' => 0,
+            'log' => ''.$e
+        ],500);
     }
   }
 }

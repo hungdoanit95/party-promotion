@@ -26,4 +26,5 @@ class Messages
     const MSG_0020 = "Không tìm thấy";
     const MSG_0021 = "Không tìm nhận được toạ độ";
     const MSG_0022 = "Không tìm nhận được plan_id";
+    const MSG_0023 = "Không tìm nhận được plan_party_id";
 }

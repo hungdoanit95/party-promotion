@@ -71,6 +71,7 @@ Route::prefix('local')->group(function () {
 Route::middleware('verify.api')->prefix('uploads')->group(function(){
     Route::post('/absence_reasons', [\App\Http\Controllers\UsersController::class,'absence_reasons']);
     Route::post('/checkin', [\App\Http\Controllers\PlansController::class,'checkin']);
+    Route::post('/checkin_party', [\App\Http\Controllers\PlansController::class,'checkinParty']);
     Route::post('/plan_images', [\App\Http\Controllers\PlansController::class,'upload_plan_images']);
     Route::post('/update_plan_surveys', [\App\Http\Controllers\PlansController::class,'upload_plan_surveys']);
 });
