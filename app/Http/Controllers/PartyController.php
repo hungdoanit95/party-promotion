@@ -223,4 +223,22 @@ class PartyController extends Controller
         ],500);
     }
   }
+  public function getPlanPartyById(Request $request){
+    if(!empty($request->plan_party_id)){
+      $plan_datas = PlanParty::lefjoin('parties','parties.id','plan_party.party_id')->where('plan_party.id', $request->plan_party_id)->get();
+      return response()->json([
+          'api_name' => 'Plan Party API',
+          'message' => 'Load dữ liệu thành công',
+          'data' => $plan_datas,
+          'status' => 1,
+      ],200);
+    }else{
+      return response()->json([
+          'api_name' => 'Plan Party API',
+          'message' => 'Thiếu trường party id',
+          'status' => 0,
+      ],500);
+    }
+  }
+
 }
