@@ -226,7 +226,14 @@ class PartyController extends Controller
   }
   public function getPlanPartyById(Request $request){
     if(!empty($request->plan_party_id)){
-      $plan_datas = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')->where('plan_party.id', $request->plan_party_id)->get();
+      $plan_datas = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')
+      ->where('plan_party.id', $request->plan_party_id)
+      ->select(
+        'parties.*',
+        'plan_party.*',
+        'plan_party.status as plan_party_status'
+      )
+      ->get();
       return response()->json([
           'api_name' => 'Plan Party API',
           'message' => 'Load dữ liệu thành công',
@@ -254,7 +261,7 @@ class PartyController extends Controller
       ],200);
     }else{
       return response()->json([
-          'api_name' => 'Plan Party API',
+          'api_name' => 'Plan Party API', 
           'message' => 'Thiếu params truyền vào',
           'status' => 0,
       ],500);
