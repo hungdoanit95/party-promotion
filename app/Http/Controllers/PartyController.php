@@ -251,11 +251,13 @@ class PartyController extends Controller
   public function updatePlanCheckIn(Request $request){
     if(!empty($request->plan_party_id) && !empty($request->longitude) && !empty($request->latitude)){
       $check_plan_checkin = PlanParty::whereNotNull('time_checkin')->where('id',$request->plan_party_id)->first();
-      return $check_plan_checkin;
       if($check_plan_checkin){
+        $message_exists = "Bạn đã check in thành công \n";
+        $message_exists .= "Thời gian: ".$check_plan_checkin->time_checkin." \n";
+        $message_exists .= "Toạ độ: ".$check_plan_checkin->latitude ." - ".$check_plan_checkin->longitude;
         return response()->json([
           'api_name' => 'Plan check in API', 
-          'message' => 'Thiếu params truyền vào',
+          'message' => $message_exists,
           'status' => 0,
         ],500);
       }
