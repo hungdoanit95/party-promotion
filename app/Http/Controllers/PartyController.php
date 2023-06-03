@@ -256,9 +256,9 @@ class PartyController extends Controller
       $plan_datas->longitude = $request->longitude;
       $plan_datas->time_checkin = $time_checkin;
       $plan_datas->update();
-      $message = 'Bạn đã check in thành công \n';
-      $message .= 'Thời gian: '.$time_checkin.' \n';
-      $message .= 'Toạ độ: '.$request->latitude .' - '.$request->longitude.' \n';
+      $message = "Bạn đã check in thành công \\n";
+      $message .= "Thời gian: ".$time_checkin." /\n";
+      $message .= "Toạ độ: ".$request->latitude ." - ".$request->longitude." \n";
       return response()->json([
           'api_name' => 'Plan check in API',
           'message' => $message,
