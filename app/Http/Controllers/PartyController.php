@@ -250,8 +250,15 @@ class PartyController extends Controller
   }
   public function updatePlanCheckIn(Request $request){
     if(!empty($request->plan_party_id) && !empty($request->longitude) && !empty($request->latitude)){
-      $check_plan_checkin = PlanParty::whereNotNull('time_checkin')->where('id',$request->plan_party_id)->get();
+      $check_plan_checkin = PlanParty::whereNotNull('time_checkin')->where('id',$request->plan_party_id)->first();
       return $check_plan_checkin;
+      if($check_plan_checkin){
+        return response()->json([
+          'api_name' => 'Plan check in API', 
+          'message' => 'Thiếu params truyền vào',
+          'status' => 0,
+        ],500);
+      }
       $time_checkin = date('Y-m-d H:i:s');
       $plan_datas = PlanParty::find($request->plan_party_id);
       $plan_datas->latitude = $request->latitude;
@@ -269,7 +276,7 @@ class PartyController extends Controller
       ],200);
     }else{
       return response()->json([
-          'api_name' => 'Plan Party API', 
+          'api_name' => 'Plan check in API', 
           'message' => 'Thiếu params truyền vào',
           'status' => 0,
       ],500);
