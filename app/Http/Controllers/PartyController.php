@@ -130,11 +130,14 @@ class PartyController extends Controller
         $plan_parties = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')
         ->leftjoin('users','users.id','plan_party.user_id')
         ->where('plan_party.user_id',$request->user_id);
-        if(isset($request->type_view)){
-            if($request->type_view == 'view-day'){
+        if(isset($request)){
+            if(isset($request->type_view)&&$request->type_view == 'view-day'){
                 $plan_parties = $plan_parties->where('parties.organization_date',date('Y-m-d'));
-            }else if($request->type_view == 'view-month'){
+            }else if(isset($request->type_view)&&$request->type_view == 'view-month'){
                 $plan_parties = $plan_parties->where('parties.organization_date','LIKE',date('Y-m').'%');
+            }
+            if(isset($request->status)){
+                $plan_parties = $plan_parties->where('plan_party.status',$request->status);
             }
         }else{
             $plan_parties = $plan_parties->where('parties.organization_date','LIKE',date('Y-m').'%');

@@ -17,9 +17,10 @@ class CreatePlanPartyTable extends Migration
             $table->id();
             $table->integer('party_id');
             $table->integer('user_id');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->string('time_checkin');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('time_checkin')->nullable();
+            $table->status('status')->default(0);
             $table->timestamps();
         });
     }
