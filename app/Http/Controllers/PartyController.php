@@ -250,6 +250,8 @@ class PartyController extends Controller
   }
   public function updatePlanCheckIn(Request $request){
     if(!empty($request->plan_party_id) && !empty($request->longitude) && !empty($request->latitude)){
+      $check_plan_checkin = PlanParty::whereNotNull('time_checkin')->where('id',$request->plan_party_id)->get();
+      return $check_plan_checkin;
       $time_checkin = date('Y-m-d H:i:s');
       $plan_datas = PlanParty::find($request->plan_party_id);
       $plan_datas->latitude = $request->latitude;
