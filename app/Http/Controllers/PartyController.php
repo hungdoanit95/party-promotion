@@ -241,5 +241,24 @@ class PartyController extends Controller
       ],500);
     }
   }
+  public function updatePlanCheckIn(Request $request){
+    if(!empty($request->plan_party_id) && !empty($request->longitude) && !empty($request->latitude)){
+      $plan_datas = PlanParty::find($request->plan_party_id);
+      $plan_datas->latitude = $request->latitude;
+      $plan_datas->longitude = $request->longitude;
+      $plan_datas->update();
+      return response()->json([
+          'api_name' => 'Plan Party API',
+          'message' => 'Load dữ liệu thành công',
+          'status' => 1,
+      ],200);
+    }else{
+      return response()->json([
+          'api_name' => 'Plan Party API',
+          'message' => 'Thiếu params truyền vào',
+          'status' => 0,
+      ],500);
+    }
+  }
 
 }
