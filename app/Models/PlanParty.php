@@ -15,6 +15,10 @@ class PlanParty extends Model
     protected $fillable = [
         'id',
         'party_id',
-        'user_id'
+        'user_id',
+        'latitude',
+        'longitude',
+        'time_checkin',
+        'status'
     ];
 }
