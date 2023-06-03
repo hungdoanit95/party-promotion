@@ -255,6 +255,7 @@ class PartyController extends Controller
       $plan_datas->latitude = $request->latitude;
       $plan_datas->longitude = $request->longitude;
       $plan_datas->time_checkin = $time_checkin;
+      $plan_datas->status = 2; // Đang làm
       $plan_datas->update();
       $message = "Bạn đã check in thành công \n";
       $message .= "Thời gian: ".$time_checkin." \n";
