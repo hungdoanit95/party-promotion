@@ -20,7 +20,7 @@ class CreatePlanPartyTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('time_checkin')->nullable();
-            $table->status('status')->default(0);
+            $table->smallInteger('status')->default(0);
             $table->timestamps();
         });
     }
