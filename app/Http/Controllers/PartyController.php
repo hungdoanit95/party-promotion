@@ -150,7 +150,7 @@ class PartyController extends Controller
             'users.type_account', 
             'users.group_id'
       );
-      $plan_parties = $plan_parties->orderByDesc('plan_party.id')->toSql();
+      $plan_parties = $plan_parties->orderByDesc('plan_party.id')->get();
       return response()->json([
         'api_name' => 'List Plan Party',
         'status'  => 1,
