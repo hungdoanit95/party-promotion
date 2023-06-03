@@ -248,8 +248,8 @@ class PartyController extends Controller
       $plan_datas->longitude = $request->longitude;
       $plan_datas->update();
       return response()->json([
-          'api_name' => 'Plan Party API',
-          'message' => 'Load dữ liệu thành công',
+          'api_name' => 'Plan check in API',
+          'message' => 'Bạn đã check in thành công',
           'status' => 1,
       ],200);
     }else{
