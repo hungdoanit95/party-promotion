@@ -15,7 +15,8 @@ class CreateBarcodePlanTable extends Migration
     {
         Schema::create('barcode_plan', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode_string');
+            $table->string('barcode_presenter');
+            $table->string('barcode_owner');
             $table->integer('plan_id');
             $table->integer('level');
             $table->timestamps();

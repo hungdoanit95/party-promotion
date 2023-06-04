@@ -15,4 +15,7 @@ class BarcodePlanController extends Controller
             echo 'Không nhận được params plan Id';
         }
     }
+    public function updateBarcodePlan(Request $request){
+        
+    }
 }

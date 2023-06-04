@@ -11,7 +11,8 @@ class BarcodePlan extends Model
     protected $table = 'barcode_plan';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'barcode_string',
+        'barcode_presenter',
+        'barcode_owner',
         'plan_id',
         'level'
     ];
