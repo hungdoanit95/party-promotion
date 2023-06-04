@@ -61,6 +61,7 @@ Route::middleware('verify.api')->prefix('party')->group(function () {
     Route::post('/get_parties', [\App\Http\Controllers\PartyController::class, 'getPartiesByUserIdMobile']);
     Route::post('/get_planparty_by_id', [\App\Http\Controllers\PartyController::class,'getPlanPartyById']);
     Route::post('/update_plan_checkin', [\App\Http\Controllers\PartyController::class, 'updatePlanCheckIn']);
+    Route::post('/update_barcode_plan', [\App\Http\Controllers\BarcodePlanController::class, 'updateBarcodePlan']);
 });
 
 //List Local
