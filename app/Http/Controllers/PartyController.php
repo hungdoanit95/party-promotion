@@ -343,7 +343,7 @@ class PartyController extends Controller
   }
   public function getPartiesSurvey(Request $request){
     $survey_history = SurveyHistory::where('route_plan', date('Y-m'))->first();
-    if(count($survey_history) < 1){
+    if($survey_history){
         $survey_questions = SurveyQuestion::whereNull('id_deleted')->get();
         if(count($survey_questions) > 0){
             SurveyHistory::create([
