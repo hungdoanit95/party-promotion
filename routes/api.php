@@ -63,6 +63,7 @@ Route::middleware('verify.api')->prefix('party')->group(function () {
     Route::post('/update_plan_checkin', [\App\Http\Controllers\PartyController::class, 'updatePlanCheckIn']);
     Route::post('/update_barcode_plan', [\App\Http\Controllers\BarcodePlanController::class, 'updateBarcodePlan']);
     Route::post('/add_party_note', [\App\Http\Controllers\PartyController::class, 'add_party_note']);
+    Route::post('/confirm_plan_party', [\App\Http\Controllers\PartyController::class, 'confirmPlanParty']);
     Route::post('/update_plan_party_survey',[\App\Http\Controllers\PartyController::class, 'updatePlanPartySurvey']);
     Route::post('/upload_plan_party_images', [\App\Http\Controllers\PartyController::class, 'upload_plan_party_images']);
 }); 

@@ -438,6 +438,27 @@ class PartyController extends Controller
         ], 500);
     }
   }
+  
+  public function confirmPlanParty(Request $request){
+    if(!empty($request->plan_party_id)){
+        PlanParty::where('id',$request->plan_party_id)->where('user_id',$request->user_id)->update([
+            'status' => $request->status
+        ]);
+        return response()->json(
+        [
+          'api_name'=> 'API Update Confirm Plan Party',
+          'message' => 'Cập nhật dữ liệu thành công!',
+          'status' => 1
+        ], 200);
+    }else{
+        return response()->json(
+        [
+          'api_name'=> 'API Update Confirm Plan Party',
+          'message' => 'Thiếu params truyền vào!',
+          'status' => 0
+        ], 500);
+    }
+  }
 
   public function upload_plan_party_images(Request $request){
     if(empty($request['photos'])){
