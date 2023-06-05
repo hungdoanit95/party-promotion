@@ -410,6 +410,12 @@ class PartyController extends Controller
                 'status' => 0
         ], 500);
     }else{
+        if($request->hasFile('photos')){
+            return ['hasfile', $request['photos']];
+        }else{
+            return ['nofile', $request['photos']];
+        }
+
         $list_photos = isset($request['photos']) ? $request['photos'] : array();
         $check_status = [];
         $plan_info = PlanParty::leftjoin('parties','parties.id','plan_party.id')->where('plan_party.id',$request['plan_party_id'])->select('plan_party.latitude','plan_party.longitude','parties.party_code','plan_party.time_checkin')->get();
