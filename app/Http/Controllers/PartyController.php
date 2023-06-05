@@ -428,7 +428,13 @@ class PartyController extends Controller
             }else{
                 $tmpExtension = 'jpeg';
             }
+            return [
+                $photo_data['fileName'],
+                date('YmdHis'),
+                $tmpExtension
+            ];
             $fileName = sprintf('img%s%s.%s', $photo_data['fileName'], date('YmdHis'), $tmpExtension);
+            return $fileName;
             
             $storage = Storage::disk('local');
             
