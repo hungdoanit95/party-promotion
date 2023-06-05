@@ -427,22 +427,22 @@ class PartyController extends Controller
             
             $storage = Storage::disk('local');
             
-            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['type'];
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['camera_id'];
             $checkDirectory = $storage->exists($folder);
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
             $content_file = file_get_contents($photo_data['uri']);
-            return ['content_file',$content_file];
-            $image = imagecreatefromstring($content_file);
-            $textColor = imagecolorallocate($image, 255, 255, 255);
-            $fontSize = 16;
-            $watermarkX = 10;
-            $watermarkY = 10;
-            $opacity = 50; 
-            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
-            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
-            imagejpeg($image, $folder . '/' . $fileName);
+            file_put_contents($folder, $content_file);
+            // $image = imagecreatefromstring($content_file);
+            // $textColor = imagecolorallocate($image, 255, 255, 255);
+            // $fontSize = 16;
+            // $watermarkX = 10;
+            // $watermarkY = 10;
+            // $opacity = 50; 
+            // imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
+            // imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
+            // imagejpeg($image, $folder . '/' . $fileName);
             $check_status[] = PlanPartyImages::insert([
               'plan_party_id' => $request['plan_party_id'],
               'user_id' => $request['user_id'],
