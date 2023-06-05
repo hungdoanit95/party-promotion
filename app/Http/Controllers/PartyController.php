@@ -342,8 +342,8 @@ class PartyController extends Controller
     }
   }
   public function getPartiesSurvey(Request $request){
-    $survey_history = SurveyHistory::where('route_plan', date('Y-m'))->get();
-    if(count($survey_history) == 0){
+    $survey_history = SurveyHistory::where('route_plan', date('Y-m'))->first();
+    if(count($survey_history) < 1){
         $survey_questions = SurveyQuestion::whereNull('id_deleted')->get();
         if(count($survey_questions) > 0){
             SurveyHistory::create([
@@ -352,8 +352,8 @@ class PartyController extends Controller
                 'questions' => json_encode($survey_questions)
             ]);
             return response()->json([
-                'api_name' => 'Update Data Survey API',
-                'message' => 'Update dữ liệu thành công',
+                'api_name' => 'List Survey API',
+                'data' => json_encode($survey_questions),
                 'status' => 1,
             ],200);
         }else{
@@ -363,6 +363,12 @@ class PartyController extends Controller
                 'status' => 0,
             ],500);
         }
+    }else{
+        return response()->json([
+            'api_name' => 'List Survey API',
+            'data' => $survey_history['questions'],
+            'status' => 1,
+        ],200);
     }
   }
   public function add_party_note(Request $request){ 
