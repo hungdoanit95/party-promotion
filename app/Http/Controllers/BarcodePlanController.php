@@ -17,7 +17,7 @@ class BarcodePlanController extends Controller
     }
     public function updateBarcodePlan(Request $request){
         if(!empty($request->plan_party_id)){
-            BarcodePlan::updateOrCreate(['plan_id',$request->plan_party_id],[
+            BarcodePlan::updateOrCreate(['plan_id' => $request->plan_party_id],[
                 'barcode_presenter' => $request->barcode_presenter,
                 'barcode_owner' => $request->barcode_owner,
                 'plan_id' => $request->plan_party_id,
