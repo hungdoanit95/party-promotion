@@ -423,22 +423,22 @@ class PartyController extends Controller
         $latitude = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'';
         $longitude = isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'';
         foreach($list_photos as $photo_data){
-            $arr_photo = explode(';base64,', $photo_data['photo']);
-            list($extension, $content) = $arr_photo;
-            $tmpExtension = explode('/', $extension);
-            preg_match('/.([0-9]+) /', microtime(), $m);
-            $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $tmpExtension[1]);
+            if(!empty($photo_data->type)){
+                $tmpExtension = explode('/', explode('/',$photo_data->type)[1]);
+            }else{
+                $tmpExtension = 'jpeg';
+            }
+            $fileName = sprintf('img%s%s.%s', $photo_data->fileName, date('YmdHis'), $tmpExtension);
             
             $storage = Storage::disk('local');
             
-            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['type'];
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data->type;
             $checkDirectory = $storage->exists($folder);
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
-            // $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
-            $imageData = base64_decode($content);
-            $image = imagecreatefromstring($imageData);
+            
+            $image = imagecreatefromstring($photo_data->uri);
             $textColor = imagecolorallocate($image, 255, 255, 255);
             $fontSize = 16;
             $watermarkX = 10;
