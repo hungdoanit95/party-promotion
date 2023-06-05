@@ -36,11 +36,11 @@
           <i class="bi bi-circle"></i><span>Plan List</span>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{route('transfer.plan.party')}}" class="active">
           <i class="bi bi-circle"></i><span>Chuyển Plan</span>
         </a>
-      </li>
+      </li> -->
     </ul>
   </li>
   <li class="nav-item">

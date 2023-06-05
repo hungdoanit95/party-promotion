@@ -74,7 +74,60 @@ class PartyController extends Controller
             'key_search' => isset($request['key_search']) ? $request['key_search'] : ''
         ]);
     }
-
+    public function transferPlanParty(Request $request){
+      $user_info = session()->get('user.info');
+      if(empty($user_info)){
+          return response()->json([
+              'message' => 'Vui lòng đăng nhập để sử dụng chức năng',
+              'status' => 0
+          ]);
+      }
+      $all_users = User::select(['id','username'])->get();
+      if(empty($request->user_old) || empty($request->user_new)){
+          return view('transfer-party-plans',[
+              'data'=>[
+                  'all_users' => $all_users,
+              ]
+          ]);
+      }
+    }
+    public function updateTransferPlanParty(Request $request){
+        $user_info = session()->get('user.info');
+        if(empty($user_info)){
+            return response()->json([
+                'message' => 'Vui lòng đăng nhập để sử dụng chức năng',
+                'status' => 0
+            ]);
+        }
+        if( 
+            empty($request->user_old_id) && $request->user_old_id !== '*' || 
+            empty($request->user_new_id) && $request->user_new_id !== '*' || 
+            empty($request->month) && $request->month !== '*'
+        ){
+            return response()->json([
+                'message'          => 'Vui lòng đủ người chuyển, người nhận và tháng của plan!',
+                'status' => 0,
+            ]);
+        }
+        $data_update = [
+            'user_id' => $request->user_new_id,
+            'user_transfer_id'=>$user_info['user_id'],
+            'time_transfer' => date('Y-m-d H:i:s'),
+            'old_user_id' => $request->user_old_id
+        ];
+        $check_update = Plan::where('route_plan', $request->month)->where('user_id', $request->user_old_id)->update($data_update);
+        if($check_update){
+            return response()->json([
+                'message'          => 'Bạn đã chuyển plan thành công!',
+                'status' => 1,
+            ]);
+        }else{
+            return response()->json([
+                'message'          => 'Chuyển plan không thành công!',
+                'status' => 1,
+            ]);
+        }
+    }
     public function getListPlansParty(Request $request){
         $key_search = isset($request->key_search) ? rawurldecode($request->key_search) : '';
         $plan_parties = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')
@@ -358,6 +411,7 @@ class PartyController extends Controller
         ], 500);
     }else{
         $list_photos = isset($request['photos']) ? $request['photos'] : array();
+        return $list_photos;
         $check_status = [];
         $plan_info = PlanParty::leftjoin('parties','parties.id','plan_party.id')->where('plan_party.id',$request['plan_party_id'])->select('plan_party.latitude','plan_party.longitude','parties.party_code','plan_party.time_checkin')->get();
         $text_content = array(
