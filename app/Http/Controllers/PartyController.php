@@ -377,7 +377,7 @@ class PartyController extends Controller
             
             $storage = Storage::disk('local');
             
-            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_id'].'/'.$photo_data['type'];
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['type'];
             $checkDirectory = $storage->exists($folder);
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
@@ -394,7 +394,7 @@ class PartyController extends Controller
             imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
             imagejpeg($image, $folder . '/' . $fileName);
             $check_status[] = PlanImage::insert([
-              'plan_id' => $request['plan_id'],
+              'plan_id' => $request['plan_party_id'],
               'user_id' => $request['user_id'],
               'link_image' => $folder . '/' . $fileName,
               'type_image' => $photo_data['type'],
