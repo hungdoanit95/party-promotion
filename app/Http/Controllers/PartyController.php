@@ -314,36 +314,44 @@ class PartyController extends Controller
   public function add_party_note(Request $request){ 
     try{
         if(empty($request['content_note'])){
-            return response()->json(
-                [
-                    'api_name'=> 'API Add Plan Party Note',
-                    'message' => 'Không có nội dung nào được gửi đi!', 
-                    'status' => 0
-            ], 500);
+          return response()->json(
+          [
+            'api_name'=> 'API Add Plan Party Note',
+            'message' => 'Không có nội dung nào được gửi đi!', 
+            'status' => 0
+          ], 500);
         }
         if(empty($request['plan_party_id'])){
-            return response()->json(
-                [
-                    'api_name'=> 'API Add Plan Party Note',
-                    'message' => 'Không nhận được plan_party_id!',
-                    'status' => 0
-            ], 500);
+          return response()->json(
+          [
+            'api_name'=> 'API Add Plan Party Note',
+            'message' => 'Không nhận được plan_party_id!',
+            'status' => 0
+          ], 500);
         }
         $plan_party = PlanParty::find($request['plan_party_id']);
+        if(!empty($plan_party->time_checkin)){
+          return response()->json(
+          [
+            'api_name'=> 'API Add Plan Party Note',
+            'message' => 'Vui lòng checkin plan để tiếp tục!',
+            'status' => 0
+          ], 500);
+        }
         $plan_party->note_employee = $request['content_note'];
         $plan_party->save();
         return response()->json(
-            [
-                'api_name'=> 'API Add Plan Party Note',
-                'message' => 'Nội dung ghi chú đã được cập nhật!',
-                'status' => 1
+        [
+          'api_name'=> 'API Add Plan Party Note',
+          'message' => 'Nội dung ghi chú đã được cập nhật!',
+          'status' => 1
         ], 200);
     }catch(Exception $e){
         return response()->json(
-            [
-                'api_name'=> 'API Add Plan Party Note',
-                'message' => 'Không cập nhật được nội dung note!',
-                'status' => 0
+        [
+          'api_name'=> 'API Add Plan Party Note',
+          'message' => 'Không cập nhật được nội dung note!',
+          'status' => 0
         ], 500);
     }
   }
