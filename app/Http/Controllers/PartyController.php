@@ -436,17 +436,17 @@ class PartyController extends Controller
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
-            // $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
-            $imageData = base64_decode($content);
-            $image = imagecreatefromstring($imageData);
-            $textColor = imagecolorallocate($image, 255, 255, 255);
-            $fontSize = 16;
-            $watermarkX = 10;
-            $watermarkY = 10;
-            $opacity = 50; 
-            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
-            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
-            imagejpeg($image, $folder . '/' . $fileName);
+            $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
+            // $imageData = base64_decode($content);
+            // $image = imagecreatefromstring($imageData);
+            // $textColor = imagecolorallocate($image, 255, 255, 255);
+            // $fontSize = 16;
+            // $watermarkX = 10;
+            // $watermarkY = 10;
+            // $opacity = 50; 
+            // imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
+            // imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
+            // imagejpeg($image, $folder . '/' . $fileName);
             $check_status[] = PlanPartyImages::insert([
               'plan_party_id' => $request['plan_party_id'],
               'user_id' => $request['user_id'],
