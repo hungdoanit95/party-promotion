@@ -423,12 +423,13 @@ class PartyController extends Controller
         $latitude = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'';
         $longitude = isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'';
         foreach($list_photos as $photo_data){
+            return $photo_data;
             if(!empty($photo_data->type)){
                 $tmpExtension = explode('/', explode('/',$photo_data->type)[1]);
             }else{
                 $tmpExtension = 'jpeg';
             }
-            $fileName = sprintf('img%s%s.%s', $photo_data->fileName, date('YmdHis'), $tmpExtension);
+            $fileName = sprintf('img%s%s.%s', $photo_data['fileName'], date('YmdHis'), $tmpExtension);
             
             $storage = Storage::disk('local');
             
@@ -437,7 +438,7 @@ class PartyController extends Controller
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
-            
+
             $image = imagecreatefromstring($photo_data->uri);
             $textColor = imagecolorallocate($image, 255, 255, 255);
             $fontSize = 16;
