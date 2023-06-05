@@ -11,4 +11,16 @@ class SurveyHistory extends Model
     
     protected $table = 'survey_history';
     
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'id',
+        'route_plan',
+        'group_id',
+        'parent_id',
+        'questions',
+        'created_at',
+        'updated_at'
+    ];
 }

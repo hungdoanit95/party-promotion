@@ -57,12 +57,13 @@ Route::middleware('verify.api')->prefix('plans')->group(function () {
 });
 
 Route::middleware('verify.api')->prefix('party')->group(function () {
-    Route::post('/get_parties_survey', [\App\Http\Controllers\PartyController::class, 'getPartiesByUserIdMobile']);
+    Route::post('/get_parties_survey', [\App\Http\Controllers\PartyController::class, 'getPartiesSurvey']);
     Route::post('/get_parties', [\App\Http\Controllers\PartyController::class, 'getPartiesByUserIdMobile']);
     Route::post('/get_planparty_by_id', [\App\Http\Controllers\PartyController::class,'getPlanPartyById']);
     Route::post('/update_plan_checkin', [\App\Http\Controllers\PartyController::class, 'updatePlanCheckIn']);
     Route::post('/update_barcode_plan', [\App\Http\Controllers\BarcodePlanController::class, 'updateBarcodePlan']);
-});
+    Route::post('/add_party_note', [\App\Http\Controllers\PartyController::class, 'add_party_note']);
+}); 
 
 //List Local
 Route::prefix('local')->group(function () {

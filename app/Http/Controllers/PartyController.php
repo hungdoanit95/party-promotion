@@ -7,6 +7,8 @@ use App\Models\Parties;
 use App\Models\PlanParty;
 use App\Models\PlanImage;
 use App\Models\PlanQc;
+use App\Models\SurveyHistory;
+use App\Models\SurveyQuestion;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -231,6 +233,7 @@ class PartyController extends Controller
       ->select(
         'parties.*',
         'plan_party.*',
+        'plan_party.id as plan_party_id',
         'plan_party.status as plan_party_status'
       )
       ->get();
@@ -284,5 +287,64 @@ class PartyController extends Controller
       ],500);
     }
   }
-
+  public function getPartiesSurvey(Request $request){
+    $survey_history = SurveyHistory::where('route_plan', date('Y-m'))->get();
+    if(count($survey_history) == 0){
+        $survey_questions = SurveyQuestion::whereNull('id_deleted')->get();
+        if(count($survey_questions) > 0){
+            SurveyHistory::create([
+                'route_plan' => date('Y-m'),
+                'group_id' => $survey_questions[0]['group_id'],
+                'questions' => json_encode($survey_questions)
+            ]);
+            return response()->json([
+                'api_name' => 'Update Data Survey API',
+                'message' => 'Update dữ liệu thành công',
+                'status' => 1,
+            ],200);
+        }else{
+            return response()->json([
+                'api_name' => 'Update Data Survey API',
+                'message' => 'Update dữ liệu không thành công',
+                'status' => 0,
+            ],500);
+        }
+    }
+  }
+  public function add_party_note(Request $request){ 
+    try{
+        if(empty($request['content_note'])){
+            return response()->json(
+                [
+                    'api_name'=> 'API Add Plan Party Note',
+                    'message' => 'Không có nội dung nào được gửi đi!', 
+                    'status' => 0
+            ], 500);
+        }
+        if(empty($request['plan_party_id'])){
+            return response()->json(
+                [
+                    'api_name'=> 'API Add Plan Party Note',
+                    'message' => 'Không nhận được plan_party_id!',
+                    'status' => 0
+            ], 500);
+        }
+        $plan_party = PlanParty::find($request['plan_party_id']);
+        $plan_party->note_employee = $request['content_note'];
+        $plan_party->save();
+        return response()->json(
+            [
+                'api_name'=> 'API Add Plan Party Note',
+                'message' => 'Nội dung ghi chú đã được cập nhật!',
+                'status' => 1
+        ], 200);
+    }catch(Exception $e){
+        return response()->json(
+            [
+                'api_name'=> 'API Add Plan Party Note',
+                'message' => 'Không cập nhật được nội dung note!',
+                'status' => 0
+        ], 500);
+    }
+  }
 }
