@@ -7,6 +7,7 @@ use App\Models\Parties;
 use App\Models\PlanParty;
 use App\Models\PlanImage;
 use App\Models\PlanPartyImages;
+use App\Models\PlanPartySurvey;
 use App\Models\PlanQc;
 use App\Models\SurveyHistory;
 use App\Models\SurveyQuestion;
@@ -408,6 +409,36 @@ class PartyController extends Controller
     }
   }
   
+  public function updatePlanPartySurvey(Request $request){
+    if(!empty($request->plan_party_id)){
+        if($request->data_json){
+            PlanPartySurvey::updateOrCreate([
+                'plan_party_id' => $request->plan_party_id
+            ],[
+                'user_id' => $request->user_id,
+                'data_json' => $request->data_json,
+                'result' => isset($request->result)?$request->result:'',
+            ]);
+        }
+        PlanParty::where('id',$request->plan_party_id)->update([
+            'check_input' => 1
+        ]);
+        return response()->json(
+        [
+          'api_name'=> 'API Update Plan Party Survey',
+          'message' => 'Cập nhật dữ liệu thành công!',
+          'status' => 1
+        ], 200);
+    }else{
+        return response()->json(
+        [
+          'api_name'=> 'API Update Plan Party Survey',
+          'message' => 'Thiếu params truyền vào!',
+          'status' => 0
+        ], 500);
+    }
+  }
+
   public function upload_plan_party_images(Request $request){
     if(empty($request['photos'])){
         return response()->json(
