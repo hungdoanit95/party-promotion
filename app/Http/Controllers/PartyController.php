@@ -423,9 +423,8 @@ class PartyController extends Controller
         $latitude = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'';
         $longitude = isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'';
         foreach($list_photos as $photo_data){
-            return $photo_data;
-            if(!empty($photo_data->type)){
-                $tmpExtension = explode('/', explode('/',$photo_data->type)[1]);
+            if(!empty($photo_data['type'])){
+                $tmpExtension = explode('/', explode('/',$photo_data['type'])[1]);
             }else{
                 $tmpExtension = 'jpeg';
             }
@@ -433,13 +432,13 @@ class PartyController extends Controller
             
             $storage = Storage::disk('local');
             
-            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data->type;
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['type'];
             $checkDirectory = $storage->exists($folder);
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
 
-            $image = imagecreatefromstring($photo_data->uri);
+            $image = imagecreatefromstring($photo_data['uri']);
             $textColor = imagecolorallocate($image, 255, 255, 255);
             $fontSize = 16;
             $watermarkX = 10;
