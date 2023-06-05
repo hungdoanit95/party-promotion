@@ -423,27 +423,30 @@ class PartyController extends Controller
         $latitude = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'';
         $longitude = isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'';
         foreach($list_photos as $photo_data){
-            $fileName = sprintf('img%s%s', date('YmdHis'), $photo_data['fileName']);
+            $arr_photo = explode(';base64,', $photo_data['photo']);
+            list($extension, $content) = $arr_photo;
+            $tmpExtension = explode('/', $extension);
+            preg_match('/.([0-9]+) /', microtime(), $m);
+            $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $tmpExtension[1]);
             
             $storage = Storage::disk('local');
             
-            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['cameraId'];
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['type'];
             $checkDirectory = $storage->exists($folder);
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
-            $content_file = file_get_contents($photo_data['uri']);
-            return $content_file;
-            file_put_contents($folder, $content_file);
-            // $image = imagecreatefromstring($content_file);
-            // $textColor = imagecolorallocate($image, 255, 255, 255);
-            // $fontSize = 16;
-            // $watermarkX = 10;
-            // $watermarkY = 10;
-            // $opacity = 50; 
-            // imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
-            // imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
-            // imagejpeg($image, $folder . '/' . $fileName);
+            // $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
+            $imageData = base64_decode($content);
+            $image = imagecreatefromstring($imageData);
+            $textColor = imagecolorallocate($image, 255, 255, 255);
+            $fontSize = 16;
+            $watermarkX = 10;
+            $watermarkY = 10;
+            $opacity = 50; 
+            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
+            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
+            imagejpeg($image, $folder . '/' . $fileName);
             $check_status[] = PlanPartyImages::insert([
               'plan_party_id' => $request['plan_party_id'],
               'user_id' => $request['user_id'],
