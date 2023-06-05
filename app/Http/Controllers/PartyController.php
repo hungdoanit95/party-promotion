@@ -427,7 +427,7 @@ class PartyController extends Controller
             
             $storage = Storage::disk('local');
             
-            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['camera_id'];
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_party_id'].'/'.$photo_data['cameraId'];
             $checkDirectory = $storage->exists($folder);
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
@@ -448,7 +448,7 @@ class PartyController extends Controller
               'user_id' => $request['user_id'],
               'link_image' => $folder . '/' . $fileName,
               'type_image' => $photo_data['type'],
-              'camera_id' => $photo_data['camera_id'],
+              'camera_id' => $photo_data['cameraId'],
               'created_at' => date('Y-m-d H:i:s') 
             ]);
         }
