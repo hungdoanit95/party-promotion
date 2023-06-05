@@ -347,4 +347,75 @@ class PartyController extends Controller
         ], 500);
     }
   }
+  
+  public function upload_plan_party_images(Request $request){
+    if(empty($request['photos'])){
+        return response()->json(
+            [
+                'message' => 'Không nhận được dữ liệu',
+                'status' => 0
+        ], 500);
+    }else{
+        $list_photos = isset($request['photos']) ? $request['photos'] : array();
+        $check_status = [];
+        $plan_info = PlanParty::leftjoin('parties','parties.id','plan_party.id')->where('plan_party.id',$request['plan_party_id'])->select('plan_party.latitude','plan_party.longitude','parties.party_code','plan_party.time_checkin')->get();
+        $text_content = array(
+            'latitude' => isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'',
+            'longitude' => isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'',
+            'party_code' => isset($plan_info[0]->party_code)?$plan_info[0]->party_code:'',
+            'time_checkin' => isset($plan_info[0]->time_checkin)?$plan_info[0]->time_checkin:''
+        );
+        $timestamp = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:date('Y-m-d H:i:s');
+        $latitude = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'';
+        $longitude = isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'';
+        foreach($list_photos as $photo_data){
+            $arr_photo = explode(';base64,', $photo_data['photo']);
+            list($extension, $content) = $arr_photo;
+            $tmpExtension = explode('/', $extension);
+            preg_match('/.([0-9]+) /', microtime(), $m);
+            $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $tmpExtension[1]);
+            
+            $storage = Storage::disk('local');
+            
+            $folder = 'photos/'.date('Y-m-d').'/'.$request['plan_id'].'/'.$photo_data['type'];
+            $checkDirectory = $storage->exists($folder);
+            if (!$checkDirectory) {
+                $storage->makeDirectory($folder);
+            }
+            // $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
+            $imageData = base64_decode($content);
+            $image = imagecreatefromstring($imageData);
+            $textColor = imagecolorallocate($image, 255, 255, 255);
+            $fontSize = 16;
+            $watermarkX = 10;
+            $watermarkY = 10;
+            $opacity = 50; 
+            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Location: $latitude, $longitude");
+            imagettftext($image, $fontSize, 0, $watermarkX, $watermarkY + $fontSize, $textColor, storage_path('app/fonts/Roboto-Regular.ttf'), "Time: $timestamp");
+            imagejpeg($image, $folder . '/' . $fileName);
+            $check_status[] = PlanImage::insert([
+              'plan_id' => $request['plan_id'],
+              'user_id' => $request['user_id'],
+              'link_image' => $folder . '/' . $fileName,
+              'type_image' => $photo_data['type'],
+              'created_at' => date('Y-m-d H:i:s') 
+            ]);
+        }
+        if(!in_array(0,$check_status)){
+          return response()->json(
+          [
+            'api_name'=> 'Upload Plan Party Images API',
+            'message' => 'Upload dữ liệu thành công',
+            'status' => 1,
+          ], 200);
+        }else{
+          return response()->json(
+            [
+              'api_name'=> 'Upload Plan Party Images API',
+              'message' => 'Upload dữ liệu không thành công',
+              'status' => 0,
+          ], 500);
+        }
+    }
+  }
 }
