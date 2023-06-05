@@ -433,8 +433,8 @@ class PartyController extends Controller
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
-
-            $image = imagecreatefromstring($photo_data['uri']);
+            $content_file = file_get_contents($photo_data['uri']);
+            $image = imagecreatefromstring($content_file);
             $textColor = imagecolorallocate($image, 255, 255, 255);
             $fontSize = 16;
             $watermarkX = 10;
