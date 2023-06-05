@@ -330,14 +330,6 @@ class PartyController extends Controller
           ], 500);
         }
         $plan_party = PlanParty::find($request['plan_party_id']);
-        if(!empty($plan_party->time_checkin)){
-          return response()->json(
-          [
-            'api_name'=> 'API Add Plan Party Note',
-            'message' => 'Vui lòng checkin plan để tiếp tục!',
-            'status' => 0
-          ], 500);
-        }
         $plan_party->note_employee = $request['content_note'];
         $plan_party->save();
         return response()->json(
