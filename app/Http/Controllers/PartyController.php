@@ -433,6 +433,7 @@ class PartyController extends Controller
                 $storage->makeDirectory($folder);
             }
             $content_file = file_get_contents($photo_data['uri']);
+            return ['content_file',$content_file];
             $image = imagecreatefromstring($content_file);
             $textColor = imagecolorallocate($image, 255, 255, 255);
             $fontSize = 16;
