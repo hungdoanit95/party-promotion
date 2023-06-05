@@ -403,6 +403,7 @@ class PartyController extends Controller
   }
   
   public function upload_plan_party_images(Request $request){
+    return $request;
     if(empty($request['photos'])){
         return response()->json(
             [
