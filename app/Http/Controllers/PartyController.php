@@ -457,6 +457,9 @@ class PartyController extends Controller
             ]);
         }
         if(!in_array(0,$check_status)){
+            PlanParty::where('id', $request['plan_party_id'])->update([
+                'check_image' => 1
+            ]);
           return response()->json(
           [
             'api_name'=> 'Upload Plan Party Images API',

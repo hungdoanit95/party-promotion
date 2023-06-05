@@ -18,6 +18,9 @@ class PlanParty extends Model
         'user_id',
         'latitude',
         'longitude',
+        'check_image',
+        'check_barcode',
+        'check_input',
         'time_checkin',
         'status'
     ];

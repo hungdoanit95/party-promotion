@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BarcodePlan;
+use App\Models\PlanParty;
 
 class BarcodePlanController extends Controller
 {
@@ -22,6 +23,9 @@ class BarcodePlanController extends Controller
                 'barcode_owner' => $request->barcode_owner,
                 'plan_id' => $request->plan_party_id,
                 'level' => $request->level
+            ]);
+            PlanParty::where('id', $request->plan_party_id)->update([
+                'check_barcode' => 1
             ]);
             return response()->json(
                 [
