@@ -366,7 +366,7 @@ class PartyController extends Controller
     }else{
         return response()->json([
             'api_name' => 'List Survey API',
-            'data' => $survey_history['questions'],
+            'data' => isset($survey_history['questions'])?$survey_history['questions']:[],
             'status' => 1,
         ],200);
     }
