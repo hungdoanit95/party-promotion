@@ -403,7 +403,6 @@ class PartyController extends Controller
   }
   
   public function upload_plan_party_images(Request $request){
-    return $request;
     if(empty($request['photos'])){
         return response()->json(
             [
@@ -433,7 +432,7 @@ class PartyController extends Controller
             if (!$checkDirectory) {
                 $storage->makeDirectory($folder);
             }
-            $content_file = file_get_contents($photo_data['uri']);
+            $content_file = file_get_contents('file://'.$photo_data['uri']);
             file_put_contents($folder, $content_file);
             // $image = imagecreatefromstring($content_file);
             // $textColor = imagecolorallocate($image, 255, 255, 255);
