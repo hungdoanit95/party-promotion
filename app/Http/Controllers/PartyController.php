@@ -411,7 +411,6 @@ class PartyController extends Controller
         ], 500);
     }else{
         $list_photos = isset($request['photos']) ? $request['photos'] : array();
-        return ['list_photos' => $list_photos];
         $check_status = [];
         $plan_info = PlanParty::leftjoin('parties','parties.id','plan_party.id')->where('plan_party.id',$request['plan_party_id'])->select('plan_party.latitude','plan_party.longitude','parties.party_code','plan_party.time_checkin')->get();
         $text_content = array(
