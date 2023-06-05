@@ -403,6 +403,7 @@ class PartyController extends Controller
   }
   
   public function upload_plan_party_images(Request $request){
+    return $request;
     if(empty($request['photos'])){
         return response()->json(
             [
@@ -422,7 +423,6 @@ class PartyController extends Controller
         $timestamp = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:date('Y-m-d H:i:s');
         $latitude = isset($plan_info[0]->latitude)?$plan_info[0]->latitude:'';
         $longitude = isset($plan_info[0]->longitude)?$plan_info[0]->longitude:'';
-        return $list_photos;
         foreach($list_photos as $photo_data){
             $fileName = sprintf('img%s%s', date('YmdHis'), $photo_data['fileName']);
             
