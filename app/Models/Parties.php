@@ -12,6 +12,7 @@ class Parties extends Model
     protected $primaryKey = 'id';
     protected $fillable = array(
         'id',
+        'route_plan',
         'party_code',
         'introducer_name',
         'avatar',

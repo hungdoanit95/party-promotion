@@ -36,10 +36,8 @@ class PlanPartyImport implements ToModel, WithStartRow
         if($party_id != 0 && $user_id != 0){
             if(empty($check_duplicate) && !empty($user_id)){
                 return new PlanParty([
-                  'party_code' => isset($row[1])?$row[1]:'',
-                  'introducer_name' => isset($row[3])?$row[3]:'',
-                  'avatar' => '',
-                  'introducer_phone' => isset($row[4])?$row[4]:''
+                  'party_id' => $party_id,
+                  'user_id' => $user_id
                 ]);
             }else{
                 $message_error = 'Không tồn tại: <br />';
