@@ -5,7 +5,7 @@
             <h2 class="mb-4 font-weight-bold">
                 Tải danh sách buổi tiệc
             </h2>
-            <a class="btn btn-success" onClick="exportStore()">Export data</a>
+            <a class="btn btn-success" onClick="exportStore()"><i class="bi bi-cloud-arrow-down"></i> <span>Xuất báo cáo</span></a>
         </div>
     </div>
     <script>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Parties;
 use App\Models\Plan;
+use App\Models\PlanParty;
 use App\Models\PlanQc;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -20,50 +22,41 @@ class DashboardController extends Controller
         $start_date = isset($request->start_date)?$request->start_date:'';
         $end_date = isset($request->end_date)?$request->end_date:'';
         $val_province = isset($request->val_province) && $request->val_province != '*'?$request->val_province:'';
-        $all_plan = Plan::leftjoin('stores','stores.id','plans.store_id')->whereNotNull('plans.id')->where('plans.id_deleted',0);
-        if(!empty($route_plan)){
-            $all_plan->where('plans.route_plan', $route_plan);
-        }
+        $all_plan = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')->whereNotNull('plan_party.id');
         if(!empty($start_date)){
-            $all_plan->where('plans.date_start', '>=', $start_date);
+            $all_plan->where('parties.organization_date', '>=', $start_date);
         }
         if(!empty($end_date)){
-            $all_plan->where('plans.date_end', '<=', $end_date);
+            $all_plan->where('parties.organization_date', '<=', $end_date);
         }
         if(!empty($val_province) && $val_province != '*'){
-            $all_plan->where('stores.city_name','like','%'.$val_province.'%');
+            $all_plan->where('parties.province','like','%'.$val_province.'%');
         }
         $all_plan = $all_plan->count();
-        $all_plan_doing = Plan::leftjoin('stores','stores.id','plans.store_id')->whereNotNull('plans.id')->where('plans.id_deleted',0);
-        if(!empty($route_plan)){
-            $all_plan_doing->where('plans.route_plan', $route_plan);
-        }
+        $all_plan_doing = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')->whereNotNull('plan_party.id');
         if(!empty($start_date)){
-            $all_plan_doing->where('plans.date_start', '>=', $start_date);
+            $all_plan_doing->where('parties.organization_date', '>=', $start_date);
         }
         if(!empty($end_date)){
-            $all_plan_doing->where('plans.date_end', '<=', $end_date);
+            $all_plan_doing->where('parties.organization_date', '<=', $end_date);
         }
         if(!empty($val_province)){
-            $all_plan_doing->where('stores.city_name','like','%'.$val_province.'%');
+            $all_plan_doing->where('parties.province','like','%'.$val_province.'%');
         }
-        $all_plan_doing = $all_plan_doing->whereIn('plans.status', array(1,2))->count();
+        $all_plan_doing = $all_plan_doing->whereIn('plan_party.status', array(1,2))->count();
         $all_plan_not_make = $all_plan - $all_plan_doing;
         $users = User::all()->where('group_id', '=', 10);
-        $plans = Plan::leftjoin('stores','stores.id','plans.store_id')->whereNotNull('plans.id')->where('plans.id_deleted',0);
-        if(!empty($route_plan)){
-            $plans->where('plans.route_plan', $route_plan);
-        }
+        $plans = PlanParty::leftjoin('parties','parties.id','plan_party.party_id')->whereNotNull('plan_party.id');
         if(!empty($start_date)){
-            $plans->where('plans.date_start', '>=', $start_date);
+            $plans->where('parties.organization_date', '>=', $start_date);
         }
         if(!empty($end_date)){
-            $plans->where('plans.date_end', '<=', $end_date);
+            $plans->where('parties.organization_date', '<=', $end_date);
         }
         if(!empty($val_province)){
-            $plans->where('stores.city_name','like','%'.$val_province.'%');
+            $plans->where('parties.province','like','%'.$val_province.'%');
         }
-        $plans = $plans->select('plans.*','stores.store_name','stores.address')->get();
+        $plans = $plans->select('plan_party.*','parties.party_host_name','parties.home_number','parties.street','parties.ward','parties.district','parties.province')->get();
 
         $plan_by_users = array();
         foreach($plans as $plan){
@@ -98,11 +91,12 @@ class DashboardController extends Controller
             $total_plan_user = $status_notdoing + $status_tc + $status_ktc;
             $progress = $status_tc + $status_ktc;
             $percent_progress = ($total_plan_user > 0) ? ($status_tc + $status_ktc) / $total_plan_user : 0;
-            $plan_qcs = DB::table('plan_qc')->leftjoin('plans','plans.id','plan_qc.plan_id')->whereMonth('date_start', date('m'))
-            ->where('plans.status','!=',0)
-            ->whereYear('date_start', date('Y'))->select([
-                'plans.id as plan_id',
-                'plans.user_id as user_id',
+            $plan_qcs = DB::table('plan_qc')->leftjoin('plan_party','plan_party.id','plan_qc.plan_id')
+            ->leftjoin('parties','parties.id','plan_party.party_id')->whereMonth('organization_date', date('m'))
+            ->where('plan_party.status','!=',0)
+            ->whereYear('organization_date', date('Y'))->select([
+                'plan_party.id as plan_id',
+                'plan_party.user_id as user_id',
                 'plan_qc.id as plan_qc_id'
             ])->get();
             $data_qc_dt = array();
@@ -161,7 +155,7 @@ class DashboardController extends Controller
                 'value' => $all_plan_not_make
             ]
         );
-        $route_plans = Plan::where('id_deleted',0)->groupBy('route_plan')->select('route_plan')->get();
+        $route_plans = Parties::whereNotNull('id')->groupBy('route_plan')->select('route_plan')->get();
         return view('dashboard',[
             'user_info'=>$user_info,
             'data_users' => $data_users,

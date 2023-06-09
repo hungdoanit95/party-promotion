@@ -3,21 +3,24 @@
     <div class="container mt-5 text-center" style="min-height: 550px">
         <div class="bg-white bg-import">
             <h2 class="mb-4 font-weight-bold">
-                Nhập danh sách buổi tiệc
+                Nhập danh sách kế hoạch
             </h2>
-            <form action="{{ route('store-import') }}" method="POST" enctype="multipart/form-data">
+            @if(session('status') === 'success')
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+            <form action="{{ route('plan-party-import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                     <div class="custom-file text-left">
                         <input type="file" name="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
+                        <label class="custom-file-label" for="customFile">Chọn file</label>
                     </div>
                 </div>
                 <div class="form-group mt-4" style="max-width: 100%; width: 500px; display: flex; flex-wrap: wrap; justify-content: space-between; margin: 0 auto;">
-                    <a href="{{ asset('./assets/excel/Template-Work-Place.xlsx') }}" target="_blank" title="Tải template">Download template</a>
+                    <a href="{{ asset('./assets/excel/Template-Import-Plan-Party.xlsx') }}" target="_blank" title="Tải template">Download template</a>
                     <button type="submit" class="btn btn-primary">Import data</button>
                 </div>
             </form>
         </div>
-    </div>
-@endsection

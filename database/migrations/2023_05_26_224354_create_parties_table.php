@@ -37,6 +37,7 @@ class CreatePartiesTable extends Migration
             $table->string('point_of_salephone')->nullable(); // Số điện thoại điểm bán
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
+            $table->string('route_plan')->nullable();
             $table->integer('status')->default(1); // Trạng thái
         });
     }

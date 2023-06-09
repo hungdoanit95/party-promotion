@@ -21,12 +21,12 @@ class UsersImport implements ToModel, WithHeadingRow
         if(empty($check_duplicate) || !isset($check_duplicate) || count($check_duplicate) == 0){
             return new User([
                 'group_id'=>10,
-                'usercode'=>$row['stt'].$row['ma_nhan_vien'],
+                'usercode'=>$row['ma_nhan_vien'],
                 'username'=>$row['ten_nhan_vien'],
                 'password'=>Hash::make($row['mat_khau']),
                 'telephone'=>trim($row['so_dien_thoai']),
                 'email'=> 'no-email@example.com',
-                'address'=> '27B Nguyen Dinh Chieu Street',
+                'address'=> '',
                 'province_id'=> 1,
                 'id_number'=> '123',
                 'description'=> '',

@@ -28,6 +28,12 @@ class DownloadController extends Controller
     public function downloadPlanPage(){
         return view('plan-download');
     }
+    public function downloadPartyPage(){
+        return view('party-download');
+    }
+    public function downloadPlanPartyPage(){
+        return view('plan-party-download');
+    }
     public function downloadUserPage(){
         return view('user-download');
     }

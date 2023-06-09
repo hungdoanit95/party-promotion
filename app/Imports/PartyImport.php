@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Parties;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -17,11 +18,11 @@ class PartyImport implements ToModel, WithStartRow
     */
     public function model(array $row)
     {
-        $check_duplicate = Parties::where('party_code',trim($row[1]))->first();
-        $user_sale = Parties::where('usercode',trim($row[2]))->first();
-        if(empty($check_duplicate) && !empty($user_sale->id)){
+        $check_duplicate = Parties::where('party_code',trim($row[2]))->where('route_plan',trim($row[1]))->first();
+        if(empty($check_duplicate)){
             return new Parties([
-              'party_code' => isset($row[1])?$row[1]:'',
+              'route_plan' => isset($row[1])?$row[1]:'',
+              'party_code' => isset($row[2])?$row[2]:'',
               'introducer_name' => isset($row[3])?$row[3]:'',
               'avatar' => '',
               'introducer_phone' => isset($row[4])?$row[4]:'',
@@ -41,7 +42,6 @@ class PartyImport implements ToModel, WithStartRow
               'distributor' => isset($row[18])?$row[18]:'',
               'point_of_salename' => isset($row[19])?$row[19]:'',
               'point_of_salephone' => isset($row[20])?$row[20]:'',
-              'user_id' => $user_sale->id,
               'status' =>  1
             ]);
         }
@@ -49,6 +49,6 @@ class PartyImport implements ToModel, WithStartRow
 
     public function startRow(): int
     {
-        return 3;
+        return 2;
     }
 }

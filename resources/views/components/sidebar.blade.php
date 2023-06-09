@@ -66,12 +66,12 @@
       </a>
     </li>
     <li>
-      <a href="/store-import-export">
+      <a href="/party-import-export">
         <i class="bi bi-circle"></i><span>Bước 2: Thêm Địa điểm</span>
       </a>
     </li>
     <li>
-      <a href="/plan-import-export">
+      <a href="/plan-party-import-export">
         <i class="bi bi-circle"></i><span>Bước 3: Thêm kế hoạch</span>
       </a>
     </li>
@@ -83,18 +83,18 @@
     </a>
     <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
     <li>
-      <a href="/download-plan-page">
-        <i class="bi bi-circle"></i><span>Download Plans</span>
+      <a href="/download-plan-party-page">
+        <i class="bi bi-circle"></i><span>Tải d/s kế hoạch</span>
       </a>
     </li>
     <li>
-      <a href="/download-store-page">
-        <i class="bi bi-circle"></i><span>Download Stores</span>
+      <a href="/download-party">
+        <i class="bi bi-circle"></i><span>Tải d/s địa điểm</span>
       </a>
     </li>
     <li>
       <a href="/download-user-page">
-        <i class="bi bi-circle"></i><span>Download Users</span>
+        <i class="bi bi-circle"></i><span>Tải d/s nhân viên</span>
       </a>
     </li>
     </ul>

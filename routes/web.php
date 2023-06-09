@@ -14,21 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('user-import-export', [\App\Http\Controllers\ImportController::class, 'userImportExport']);
+Route::get('/user-import-export', [\App\Http\Controllers\ImportController::class, 'userImportExport']);
 Route::post('/user-import',  [\App\Http\Controllers\ImportController::class, 'userImport'])->name('user-import');
 Route::get('user-export', [\App\Http\Controllers\ImportController::class, 'userExport'])->name('user-export');
 
-Route::get('plan-import-export', [\App\Http\Controllers\ImportController::class, 'planImportExport']);
+Route::get('/plan-import-export', [\App\Http\Controllers\ImportController::class, 'planImportExport']);
 Route::post('/plan-import',  [\App\Http\Controllers\ImportController::class, 'planImport'])->name('plan-import');
 Route::get('plan-export', [\App\Http\Controllers\ImportController::class, 'planExport'])->name('plan-export');
 
-Route::get('store-import-export', [\App\Http\Controllers\ImportController::class, 'storeImportExport']);
+Route::get('/store-import-export', [\App\Http\Controllers\ImportController::class, 'storeImportExport']);
 Route::post('/store-import',  [\App\Http\Controllers\ImportController::class, 'storeImport'])->name('store-import');
 Route::get('/store-export', [\App\Http\Controllers\ImportController::class, 'storeExport'])->name('store-export');
 
-Route::get('party-import-export', [\App\Http\Controllers\ImportController::class, 'partyImportExport']);
+Route::get('/party-import-export', [\App\Http\Controllers\ImportController::class, 'partyImportExport']);
 Route::post('/party-import',  [\App\Http\Controllers\ImportController::class, 'partyImport'])->name('party-import');
 Route::get('/party-export', [\App\Http\Controllers\ImportController::class, 'partyExport'])->name('party-export');
+
+Route::get('/plan-party-import-export', [\App\Http\Controllers\ImportController::class, 'planPartyImportExport']);
+Route::post('/plan-party-import',  [\App\Http\Controllers\ImportController::class, 'planPartyImport'])->name('plan-party-import');
+Route::get('/plan-party-export', [\App\Http\Controllers\ImportController::class, 'planPartyExport'])->name('plan-party-export');
 
 Route::get('/get-list-plans', [\App\Http\Controllers\PlansController::class, 'getListPlans'])->name('get-list-plans');
 Route::get('/get-info-plan/{id}', [\App\Http\Controllers\PlansController::class, 'getDetailPlan'])->name('get-info-plan');
@@ -78,10 +82,12 @@ Route::post('/group-store-code', [\App\Http\Controllers\StoresController::class,
 
 //Download
 Route::get('/download-plan-page', [\App\Http\Controllers\DownloadController::class, 'downloadPlanPage'])->name('download-plan-page');
+Route::get('/download-plan-party-page', [\App\Http\Controllers\DownloadController::class, 'downloadPlanPartyPage'])->name('download-plan-party-page');
 Route::get('/download-user-page', [\App\Http\Controllers\DownloadController::class, 'downloadUserPage'])->name('download-user-page');
 Route::get('/download-store-page', [\App\Http\Controllers\DownloadController::class, 'downloadStorePage'])->name('download-store-page');
 Route::get('/download-report-plan', [\App\Http\Controllers\DownloadController::class, 'downloadReportPlan'])->name('download-report-plan');
 Route::get('/download-powerpoint', [\App\Http\Controllers\DownloadController::class, 'downloadPowerpoint'])->name('download-powerpoint');
+Route::get('/download-party', [\App\Http\Controllers\DownloadController::class, 'downloadPartyPage'])->name('download-party');
 
 //Upload Image
 Route::post('/upload-image-plan-web', [\App\Http\Controllers\PlansController::class, 'uploadImagePlanWeb'])->name('upload.imagePlanWeb');

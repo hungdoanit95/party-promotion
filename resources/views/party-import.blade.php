@@ -5,6 +5,11 @@
             <h2 class="mb-4 font-weight-bold">
                 Nhập danh sách buổi tiệc
             </h2>
+            @if(session('status') === 'success')
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
             <form action="{{ route('party-import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">

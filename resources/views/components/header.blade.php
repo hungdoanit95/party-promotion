@@ -24,7 +24,6 @@
         <link href="{{asset('./assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
         <link href="{{asset('./assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
         <link href="{{asset('./assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
-
         <!-- Template Main CSS File -->
         <link href="{{asset('./assets/css/style.css')}}" rel="stylesheet">
         <style>
@@ -37,6 +36,16 @@
             .bg-import h2{
               font-size: 25px;
               margin-bottom: 15px !important;
+            }
+            .bg-export{
+              padding: 15px
+            }
+            .bg-export h2{
+              font-size: 20px;
+              font-weight: bold;
+            }
+            .bg-export a{
+              font-size: 15px;
             }
         </style>
     </head>

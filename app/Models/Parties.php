@@ -34,4 +34,5 @@ class Parties extends Model
         'point_of_salephone',
         'status'
     );
+    public $timestamps = false;
 }
