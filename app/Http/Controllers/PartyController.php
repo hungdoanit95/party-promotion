@@ -439,6 +439,27 @@ class PartyController extends Controller
     }
   }
   
+  public function updateShareStatus(Request $request){
+    if(!empty($request->plan_party_id)){
+        PlanParty::where('id',$request->plan_party_id)->where('user_id',$request->user_id)->update([
+            'check_share' => 1
+        ]);
+        return response()->json(
+        [
+          'api_name'=> 'API Update Confirm Plan Party',
+          'message' => 'Bạn đã chia sẻ thành công!',
+          'status' => 1
+        ], 200);
+    }else{
+        return response()->json(
+        [
+          'api_name'=> 'API Update Confirm Plan Party',
+          'message' => 'Thiếu params truyền vào!',
+          'status' => 0
+        ], 500);
+    }
+  }
+  
   public function confirmPlanParty(Request $request){
     if(!empty($request->plan_party_id)){
         PlanParty::where('id',$request->plan_party_id)->where('user_id',$request->user_id)->update([

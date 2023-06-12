@@ -21,6 +21,9 @@ class PlanParty extends Model
         'check_image',
         'check_barcode',
         'check_input',
+        'check_reason',
+        'check_share',
+        'reason_name',
         'time_checkin',
         'status'
     ];

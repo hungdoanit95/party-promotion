@@ -96,18 +96,21 @@
     width: 100%;
     position: relative;
   }
-
+  select.form-control{
+    height: 40px;
+    display: inline-block;
+  }
   .card-body ul li i{
     position: absolute;
-    top: 50%;
+    top: calc(50% + 12px);
     transform: translateY(-50%);
     right: 5px;
     z-index: 1;
   }
 
   .card-body #dashboard-rs ul li input{
-    margin: 10px;
-    margin-right: 35px;
+    margin: 0;
+    margin-right: 40px;
   }
   .alert{
     padding: 7px 10px;
@@ -479,14 +482,14 @@
               <span id="rs-txt" style="font-weight: bold; font-size: 20px; color: #c30000">({{ 'Rớt' }})</span>
             @endif
           </h5>
-          <p class="list-result-status">
+          <!-- <p class="list-result-status">
               <span>Trạng thái: </span>
               <select name="plan_result" class="form-control" id="plan-result" style="display:inline-block; width: auto">
                 <option value="*">Kết quả</option>
                 <option {{ ($data['plan_info']->plan_status == 1)?"selected":"" }} value="1">Thành công</option>
                 <option {{ ($data['plan_info']->plan_status == 2)?"selected":"" }} value="2">Không thành công</option>
               </select>
-          </p>
+          </p> -->
           <div id="dashboard-rs">
             @if(!empty($data['reasons']))
             <select name="plan_reason" class="form-control plan-reason-all" id="plan-reason" style="{{empty($data['plan_info']->reason_id)?'display:none;width:100%;margin-bottom:20px':'display:inline-block;width:100%;margin-bottom:20px'; }}">
@@ -499,13 +502,30 @@
             @if(!empty($data['list_questions']))
             <ul class="{{ ($data['plan_info']->plan_status == 2)?'hidden':'' }}" id="list-ipdata-plan" style="list-style:none">
               @foreach($data['list_questions'] as $question)
-                <li style="display:flex; justify-content: space-between; width: 100%; margin-top: 10; align-items: 'center'; vertical-align: 'middle';">
-                    <p style="margin-top: 10px">{{ $question['survey_name'] }} ({{ $question['target']?$question['target']:'-' }})</p>
-                    <input {{ (!empty($data['user_info']))?'':'readonly' }} id="ip-data-{{ $question['survey_id'] }}" class="ip-value-survey" min="0" type="number" style="border-radius: 10px; border:none; width: 80px; padding: 5px 10px; border: 1px solid #ccc" value="{{ !empty($data['plan_dt_arr'][$question['survey_id']]['value'])?$data['plan_dt_arr'][$question['survey_id']]['value']:0  }}">
-                    <?php if(!empty($data['plan_dt_arr'][$question['survey_id']]['value']) && $data['plan_dt_arr'][$question['survey_id']]['value'] >= $data['plan_dt_arr'][$question['survey_id']]['target']){ ?> 
-                      <i class="bi bi-clipboard-check text-success"></i>
-                    <?php }else{ ?> 
-                      <i class="bi bi-clipboard-x text-danger"></i>
+                <li style="display:flex; flex-wrap: wrap; justify-content: space-between; width: 100%; margin-top: 10px; align-items: center; vertical-align: middle">
+                    <p style="margin-top: 0; margin-bottom: 0">{{ $question['survey_name'] }} ({{ $question['target']?$question['target']:'-' }})</p>
+                    <?php if($question['survey_type'] !== 'select'){ ?> 
+                      <input {{ (!empty($data['user_info']))?'':'readonly' }} id="ip-data-{{ $question['survey_id'] }}" class="ip-value-survey" type="{{ $question['survey_type'] }}" style="border-radius: 10px; border:none; width: 100%; padding: 5px 10px; border: 1px solid #ccc" value="{{ !empty($data['plan_dt_arr'][$question['survey_id']]['value'])?$data['plan_dt_arr'][$question['survey_id']]['value']:''  }}">
+                      <?php if(!empty($data['plan_dt_arr'][$question['survey_id']]['value']) && $data['plan_dt_arr'][$question['survey_id']]['value'] >= $data['plan_dt_arr'][$question['survey_id']]['target']){ ?> 
+                        <i class="bi bi-clipboard-check text-success"></i>
+                      <?php }else{ ?> 
+                        <i class="bi bi-clipboard-x text-danger"></i>
+                      <?php } ?>
+                    <?php }else{ ?>
+                      <?php if(!empty($question['survey_answers'])){ ?>
+                        <select 
+                          class="form-control"
+                          id="ip-data-{{ $question['survey_id'] }}" 
+                          class="ip-value-survey"
+                          style="border-radius: 10px; border:none; width: 100%; padding: 5px 10px; border: 1px solid #ccc"
+                        >
+                          <?php foreach($question['survey_answers'] as $answer){ ?>
+                            <option {!!  !empty($data['plan_dt_arr'][$question['survey_id']]['value']) && $data['plan_dt_arr'][$question['survey_id']]['value'] == $answer['value'] ? 'selected="selected"' : '' !!} value="{{ $answer['value'] }}">
+                              {{ $answer['name'] }}
+                            </option>
+                          <?php } ?>
+                        </select>
+                      <?php } ?>
                     <?php } ?>
                 </li>
               @endforeach
@@ -569,33 +589,33 @@
       });
       $('#btn-save-data').on("click",function(){
         let data_send = {};
-        let plan_result = $('#plan-result').val();
+        // let plan_result = $('#plan-result').val();
         let valueArray = $('.ip-value-survey').map(function() {
           return this.value;
         }).get();
-        if(plan_result == 2){
-          let ip_reason = $('#plan-reason').val();
-          if(ip_reason === '*' || ip_reason === '' || ip_reason === null){
-            alert("Vui lòng chọn lý do không thành công");
-            return false;
-          }else{
-              data_send['id_reason'] = ip_reason;
-          }
-        }else if(plan_result == 1){
-          for(let i = 0; i < valueArray.length; i++){
-            let j = i + 1;
-            data_send['data'+j] = valueArray[i];
-          }
-        }else{
-          alert("Vui lòng chọn kết quả");
+        // if(plan_result == 2){
+        //   let ip_reason = $('#plan-reason').val();
+        //   if(ip_reason === '*' || ip_reason === '' || ip_reason === null){
+        //     alert("Vui lòng chọn lý do không thành công");
+        //     return false;
+        //   }else{
+        //       data_send['id_reason'] = ip_reason;
+        //   }
+        // }else if(plan_result == 1){
+        for(let i = 0; i < valueArray.length; i++){
+          let j = i + 1;
+          data_send['data'+j] = valueArray[i];
         }
+        // }else{
+        //   alert("Vui lòng chọn kết quả");
+        // }
         $.ajax({
           type: "POST",
           url: "/update-plan-data",
           data: {
             "_token": "{{ csrf_token() }}",
             "data_send": data_send,
-            "type_data": plan_result,
+            // "type_data": plan_result,
             "user_id": "{{$data['plan_info']->user_id}}", 
             "plan_id": "{{ $data['plan_info']->plan_id }}"
           },

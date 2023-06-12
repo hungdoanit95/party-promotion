@@ -1088,6 +1088,8 @@ class PlansController extends Controller
                 $list_question[$question['survey_id']] = array(
                     'survey_id' => $question['survey_id'],
                     'survey_name' => $question['survey_name'],
+                    'survey_type' => $question['survey_type'],
+                    'survey_answers' => isset($question['survey_answers'])?$question['survey_answers']:array(),
                     'target' => $question['target'],
                 );
             }
@@ -1130,11 +1132,18 @@ class PlansController extends Controller
                 );
             }
         }
+        $dt_l_question = array();
+        if($list_question){
+            foreach($list_question as $quest){
+                $quest['survey_answers'] = !empty($quest['survey_answers'])?json_decode($quest['survey_answers'],1):'';
+                $dt_l_question[] = $quest;
+            }
+        }
         $data = array(
             'plan_images' => $plan_images,
             'plan_info' => $plan_info,
             'plan_dt_arr' => $plan_dt_arr,
-            'list_questions' => $list_question,
+            'list_questions' => $dt_l_question,
             'plan_qc_codes' => $plan_qc_codes,
             'reasons' => $reasons,
             'cameras' => $cameras,

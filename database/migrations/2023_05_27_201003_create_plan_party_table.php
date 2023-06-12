@@ -24,6 +24,9 @@ class CreatePlanPartyTable extends Migration
             $table->smallInteger('check_image')->default(0);
             $table->smallInteger('check_barcode')->default(0);
             $table->smallInteger('check_input')->default(0);
+            $table->smallInteger('check_reason')->default(0);
+            $table->smallInteger('check_share')->default(0);
+            $table->string('reason_name')->nullable();
             $table->string('time_checkin')->nullable();
             $table->smallInteger('status')->default(0);
             $table->timestamps();

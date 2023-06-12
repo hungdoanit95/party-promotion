@@ -22,7 +22,7 @@ class DataSurveys extends Seeder
                 'parent_id' => 0,
                 'survey_name'=>'Cập nhật lại thông ngày tổ chức không?',
                 'target'=> 0,
-                'survey_type'=>'datetime',
+                'survey_type'=>'date',
                 'survey_sort' => 1,
                 'is_required' => 0,
                 'survey_deleted'=>0,
